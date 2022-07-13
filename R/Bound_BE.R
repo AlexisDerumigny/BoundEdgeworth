@@ -62,7 +62,7 @@ Bound_BE <- function(
     }
 
     ub_DeltanB <- ub_DeltanE +
-      abs(lambda3) * (dnorm(0, mean = 0, sd = 1) / 6) / sqrt(n)
+      abs(lambda3) * (stats::dnorm(0, mean = 0, sd = 1) / 6) / sqrt(n)
 
   }
 
