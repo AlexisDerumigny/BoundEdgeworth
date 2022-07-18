@@ -173,6 +173,39 @@ r2n_inid_noskew <- function(eps, n, K3tilde, K4)
 }
 
 
+r2n_iid_skew <- function(eps, n, lambda3, K3tilde, K4, K3)
+{
+  value_Rn_iid_integrated <- Rn_iid_integrated(
+    eps = eps, n = n, K4 = K4, lambda3 = lambda3, noskewness = FALSE)
+
+  value_Delta_curly_brace_part <- Delta_curly_brace_part_r2n(
+    eps = eps, p = 3, n = n, K4 = K4, K3tilde = K3tilde)
+
+  min_lower_end_Gamma <- min(sqrt(2*eps) * (n/K4)^(1/4), 16 *pi^3 * n^2 / K3tilde^4)
+
+  bound_modulus_psi <- Value_cst_bound_modulus_psi()
+
+  t1star <- Value_t1star()
+
+  shortcut <- 2 * n * (1 - 4 * pi * Value_chi1() * t1star) / K3tilde^2
+
+  value_r2n_inid_skew <-
+    1.2533 * K3tilde^4 / (16 * pi^4 * n^2) +
+    0.3334 * K3tilde^4 * abs(lambda3) / (16 * pi^4 * n^(5/2)) +
+    14.1961 * K3tilde^16 / ((2*pi)^16 * n^8) +
+    4.3394 * K3tilde^12 * abs(lambda3) / ((2*pi)^12 * n^(13/2)) +
+    abs(lambda3) *
+    (Upper_Incomplete_gamma(3/2, min_lower_end_Gamma) -
+       Upper_Incomplete_gamma(3/2, 16 *pi^3 * n^2 / K3tilde^4)) / sqrt(n) +
+    value_Rn_iid_integrated +
+    0 # to finish
+}
+
+r2n_iid_noskew <- function(eps, n, K3tilde, K4)
+{
+
+}
+
 
 
 #------------------------------------------------------------------------------#
