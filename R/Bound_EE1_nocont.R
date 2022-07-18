@@ -22,7 +22,7 @@ Bound_EE1_nocont_common_part_noskewness <- function(eps, n, K4, K3tilde)
 }
 
 # Additional main term for Theorem A.2 and A.3 in case of skewness
-Bound_EE1_nocont_common_part_skewness <- function(eps, n, K4, lambda3)
+Bound_EE1_nocont_additional_skewness <- function(eps, n, K3tilde, lambda3)
 {
   return((0.054 * abs(lambda3) * K3tilde +
             0.037 * e_1n(eps = eps, noskewness = FALSE) * lambda3^2) / n
@@ -37,20 +37,30 @@ Bound_EE1_nocont_common_part_skewness <- function(eps, n, K4, lambda3)
 
 ## Main functions -------------------------------------------------
 
-Bound_EE1_nocont_inid_skew <- function(n, eps, K4, K3tilde, lambda3)
+#' @examples
+#' Bound_EE1_nocont_inid_skew(n = 300, eps = 0.1, K4 = 9, K3tilde = 6, lambda3 = 1, K3 = 4)
+#'
+#' @noRd
+Bound_EE1_nocont_inid_skew <- function(n, eps, K4, K3, K3tilde, lambda3)
 {
   dominant_term <-
     Bound_EE1_nocont_common_part_noskewness(eps = eps, n = n,
                                             K4 = K4, K3tilde = K3tilde)
   additional_term_skewness <-
-    Bound_EE1_nocont_common_part_skewness(eps = eps, n = n, K4 = K4, lambda3 = lambda3)
+    Bound_EE1_nocont_additional_skewness(eps = eps, n = n,
+                                         K3tilde = K3tilde, lambda3 = lambda3)
 
   remainder_term <-
-    r1n_inid_skew(eps = eps, n = n, lambda3 = lambda3, K3tilde = K3tilde, K4 = K4)
+    r1n_inid_skew(eps = eps, n = n, lambda3 = lambda3,
+                  K3tilde = K3tilde, K4 = K4, K3 = K3)
 
   return(dominant_term + additional_term_skewness + remainder_term)
 }
 
+#' @examples
+#' Bound_EE1_nocont_inid_noskew(n = 300, eps = 0.1, K4 = 9, K3tilde = 6)
+#'
+#' @noRd
 Bound_EE1_nocont_inid_noskew <- function(n, eps, K4, K3tilde)
 {
   dominant_term <-
@@ -65,7 +75,7 @@ Bound_EE1_nocont_inid_noskew <- function(n, eps, K4, K3tilde)
 
 ## Remainder terms -----------------------------------------------
 
-r1n_inid_skew <- function(eps, n, lambda3, K3tilde, K4)
+r1n_inid_skew <- function(eps, n, lambda3, K3tilde, K4, K3)
 {
   value_Rn_inid_integrated <- Rn_inid_integrated(
     eps = eps, n = n, K4 = K4, lambda3 = lambda3, noskewness = FALSE)
@@ -116,10 +126,12 @@ Bound_EE1_nocont_iid_skew <- function(n, eps, K4, K3, lambda3, K3tilde)
     Bound_EE1_nocont_common_part_noskewness(eps = eps, n = n,
                                             K4 = K4, K3tilde = K3tilde)
   additional_term_skewness <-
-    Bound_EE1_nocont_common_part_skewness(eps = eps, n = n, K4 = K4, lambda3 = lambda3)
+    Bound_EE1_nocont_additional_skewness(eps = eps, n = n,
+                                         K3tilde = K3tilde, lambda3 = lambda3)
 
   remainder_term <-
-    r1n_iid_skew(eps = eps, n = n, lambda3 = lambda3, K3tilde = K3tilde, K4 = K4)
+    r1n_iid_skew(eps = eps, n = n, lambda3 = lambda3,
+                 K3tilde = K3tilde, K4 = K4, K3 = K3)
 
   return (dominant_term + additional_term_skewness + remainder_term)
 }
