@@ -201,7 +201,7 @@ r2n_iid_skew <- function(eps, n, lambda3, K3tilde, K4, K3)
 r2n_iid_noskew <- function(eps, n, K3tilde, K4, K3)
 {
   value_Rn_iid_integrated <- Rn_iid_integrated(
-    eps = eps, n = n, K4 = K4, lambda3 = lambda3, noskewness = FALSE)
+    eps = eps, n = n, K4 = K4, noskewness = TRUE)
 
   upper_end_Gamma <- 2^5 * pi^6 * n^4 / K3^8
   lower_end_Gamma <- min( eps * sqrt(n / (16 * K4)) , upper_end_Gamma)
