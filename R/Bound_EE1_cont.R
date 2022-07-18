@@ -36,7 +36,7 @@ Bound_EE1_cont_inid_skew <- function(n, eps, K4, K3, lambda3, K3tilde)
 #' Bound_EE1_cont_inid_noskew(n = 300, eps = 0.1, K4 = 9, K3tilde = 6, K3 = 4)
 #'
 #' @noRd
-Bound_EE1_cont_inid_noskew <- function(n, eps, K4, K3, lambda3, K3tilde)
+Bound_EE1_cont_inid_noskew <- function(n, eps, K4, K3, K3tilde)
 {
   dominant_term <-
     Bound_EE1_cont_common_part_noskewness(eps = eps, n = n,
@@ -91,16 +91,26 @@ Bound_EE1_cont_iid_noskew <- function(n, eps, K4, K3, K3tilde)
 #      Main terms                                                          #####
 #------------------------------------------------------------------------------#
 
-# Main term of Theorem A.4 and A.5 (noskewness case)
-Bound_EE1_cont_common_part_noskewness <- function(eps, n, K4, K3tilde)
+#' Main term of Theorem A.4 and A.5 (noskewness case)
+#'
+#' @examples
+#' Bound_EE1_cont_common_part_noskewness(n = 300, eps = 0.1, K4 = 9, K3tilde = 6)
+#'
+#' @noRd
+Bound_EE1_cont_common_part_noskewness <- function(n, eps, K4, K3tilde)
 {
   return(
     0.327 * K4 * (1/12 + 1 / (4 * (1 - 3*eps)^2)) / n
   )
 }
 
-# Additional main term for Theorem A.2 and A.3 in case of skewness
-Bound_EE1_cont_additional_skewness <- function(eps, n, K3tilde, lambda3)
+#' Additional main term for Theorem A.2 and A.3 in case of skewness
+#'
+#' @examples
+#' Bound_EE1_cont_additional_skewness(n = 300, eps = 0.1, K3tilde = 6, lambda3 = 0.1)
+#'
+#' @noRd
+Bound_EE1_cont_additional_skewness <- function(n, eps, K3tilde, lambda3)
 {
   return(
     0.037 * e_1n(eps = eps, noskewness = FALSE) * lambda3^2 / n
@@ -111,7 +121,12 @@ Bound_EE1_cont_additional_skewness <- function(eps, n, K3tilde, lambda3)
 #      Remainder terms                                                     #####
 #------------------------------------------------------------------------------#
 
-r2n_inid_skew <- function(eps, n, lambda3, K3tilde, K4, K3)
+
+#' @examples
+#' r2n_inid_skew(n = 300, eps = 0.1, K4 = 9, K3tilde = 6, lambda3 = 1, K3 = 4)
+#'
+#' @noRd
+r2n_inid_skew <- function(n, eps, K4, K3, lambda3, K3tilde)
 {
   value_Rn_inid_integrated <- Rn_inid_integrated(
     eps = eps, n = n, K4 = K4, lambda3 = lambda3, noskewness = FALSE)
@@ -119,29 +134,21 @@ r2n_inid_skew <- function(eps, n, lambda3, K3tilde, K4, K3)
   value_Delta_curly_brace_part <- Delta_curly_brace_part_r2n(
     eps = eps, p = 3, n = n, K4 = K4, K3tilde = K3tilde)
 
-  min_lower_end_Gamma <- min(sqrt(2*eps) * (n/K4)^(1/4), 16 *pi^3 * n^2 / K3tilde^4)
+  upper_end_Gamma <- 16 *pi^3 * n^2 / K3tilde^4
+  lower_end_Gamma <- min( sqrt(2*eps) * (n/K4)^(1/4) , upper_end_Gamma )
 
-  bound_modulus_psi <- Value_cst_bound_modulus_psi()
-
-  t1star <- Value_t1star()
-
-  shortcut <- 2 * n * (1 - 4 * pi * Value_chi1() * t1star) / K3tilde^2
-
-  value_r2n_inid_skew <-
+  result <-
     1.2533 * K3tilde^4 / (16 * pi^4 * n^2) +
     0.3334 * K3tilde^4 * abs(lambda3) / (16 * pi^4 * n^(5/2)) +
     14.1961 * K3tilde^16 / ((2*pi)^16 * n^8) +
     4.3394 * K3tilde^12 * abs(lambda3) / ((2*pi)^12 * n^(13/2)) +
-    abs(lambda3) *
-    (Upper_Incomplete_gamma(3/2, min_lower_end_Gamma) -
-       Upper_Incomplete_gamma(3/2, 16 *pi^3 * n^2 / K3tilde^4)) / sqrt(n) +
+    abs(lambda3) * abs(Upper_Incomplete_gamma(3/2, upper_end_Gamma) -
+                         Upper_Incomplete_gamma(3/2, lower_end_Gamma) ) / sqrt(n) +
     value_Rn_inid_integrated +
-    bound_modulus_psi * K3 * value_Delta_curly_brace_part / (6 * pi * sqrt(n)) +
-    bound_modulus_psi / (2*pi) *
-    (Standard_gamma(shortcut) - Standard_gamma(shortcut * (pi * t1star)^2)) +
-    bound_modulus_psi / (4*pi) *
-    abs(Upper_Incomplete_gamma(0, (2*pi)^7 * n^4 / K3tilde^8) -
-          Upper_Incomplete_gamma(0, 2 * n / K3tilde^2))
+    Value_cst_bound_modulus_psi() * K3 * value_Delta_curly_brace_part / (6 * pi * sqrt(n)) +
+    integral_terms_r2n(n = n, K3tilde = K3tilde)
+
+  return (result)
 }
 
 r2n_inid_noskew <- function(eps, n, K3tilde, K4)
@@ -152,31 +159,68 @@ r2n_inid_noskew <- function(eps, n, K3tilde, K4)
   value_Delta_curly_brace_part <- Delta_curly_brace_part_r2n(
     eps = eps, p = 4, n = n, K4 = K4, K3tilde = K3tilde)
 
-  min_lower_end_Gamma <- min(sqrt(2*eps) * (n/K4)^(1/4), 16 *pi^3 * n^2 / K3tilde^4)
-
-  bound_modulus_psi <- Value_cst_bound_modulus_psi()
-
-  t1star <- Value_t1star()
-
-  shortcut <- 2 * n * (1 - 4 * pi * Value_chi1() * t1star) / K3tilde^2
-
-  value_r2n_inid_noskew <-
+  result <-
     1.2533 * K3tilde^4 / (16 * pi^4 * n^2) +
     14.1961 * K3tilde^16 / ((2*pi)^16 * n^8) +
     value_Rn_inid_integrated +
-    bound_modulus_psi * K4 * value_Delta_curly_brace_part / (6 * pi * n) +
-    bound_modulus_psi / (2*pi) *
-    (Standard_gamma(shortcut) - Standard_gamma(shortcut * (pi * t1star)^2)) +
-    bound_modulus_psi / (4*pi) *
-    abs(Upper_Incomplete_gamma(0, (2*pi)^7 * n^4 / K3tilde^8) -
-          Upper_Incomplete_gamma(0, 2 * n / K3tilde^2))
+    Value_cst_bound_modulus_psi() * K4 * value_Delta_curly_brace_part / (6 * pi * n) +
+    integral_terms_r2n(n = n, K3tilde = K3tilde)
+
+  return (result)
 }
 
 
+r2n_iid_skew <- function(eps, n, lambda3, K3tilde, K4, K3)
+{
+  value_Rn_iid_integrated <- Rn_iid_integrated(
+    eps = eps, n = n, K4 = K4, lambda3 = lambda3, noskewness = FALSE)
+
+  value_Delta_curly_brace_part <- Delta_curly_brace_part_r2n(
+    eps = eps, p = 3, n = n, K4 = K4, K3tilde = K3tilde)
+
+  upper_end_Gamma <- 16 *pi^3 * n^2 / K3tilde^4
+  lower_end_Gamma <- min( sqrt(2*eps) * (n/K4)^(1/4) , upper_end_Gamma )
+
+  result <-
+    1.2533 * K3tilde^4 / (16 * pi^4 * n^2) +
+    0.3334 * K3tilde^4 * abs(lambda3) / (16 * pi^4 * n^(5/2)) +
+    14.1961 * K3tilde^16 / ((2*pi)^16 * n^8) +
+    4.3394 * K3tilde^12 * abs(lambda3) / ((2*pi)^12 * n^(13/2)) +
+    abs(lambda3) * abs(Upper_Incomplete_gamma(3/2, upper_end_Gamma) -
+                         Upper_Incomplete_gamma(3/2, lower_end_Gamma) ) / sqrt(n) +
+    value_Rn_iid_integrated +
+    integral_terms_r2n(n = n,
+                       K3tilde = K3tilde) +
+    1.306 * ( e_2n(eps = eps, noskewness = FALSE , n = n, K4 = K4, lambda3 = lambda3)
+              - e3(eps = eps) ) * lambda3^2 / (36 * n)
+
+  return (result)
+}
+
+
+r2n_iid_noskew <- function(eps, n, K3tilde, K4, K3)
+{
+  value_Rn_iid_integrated <- Rn_iid_integrated(
+    eps = eps, n = n, K4 = K4, lambda3 = lambda3, noskewness = FALSE)
+
+  upper_end_Gamma <- 2^5 * pi^6 * n^4 / K3^8
+  lower_end_Gamma <- min( eps * sqrt(n / (16 * K4)) , upper_end_Gamma)
+
+  result <-
+    1.2533 * K3tilde^4 / (16 * pi^4 * n^2) +
+    14.1961 * K3tilde^16 / ((2*pi)^16 * n^8) +
+    value_Rn_iid_integrated +
+    16 * 1.0253 * K3 * abs( Upper_Incomplete_gamma(2, upper_end_Gamma) -
+                              Upper_Incomplete_gamma(2, lower_end_Gamma)
+    ) /(3 * pi * n) +
+    integral_terms_r2n(n = n, K3tilde = K3tilde)
+
+  return (result)
+}
 
 
 #------------------------------------------------------------------------------#
-##### Continuity, inid - Theorem A.4 (Thm 3.1 under Assumption 2.1) #####
+#   Helper functions for the remainder terms                               #####
 #------------------------------------------------------------------------------#
 
 #' Compute the curly brace related to Delta for
@@ -219,7 +263,26 @@ Delta_curly_brace_part_r2n <- function(eps, p, n, K4, K3tilde){
 }
 
 
+#' @examples
+#' integral_terms_r2n(n = 300, K3tilde = 6)
+#'
+#' @noRd
+integral_terms_r2n <- function(n, K3tilde)
+{
+  bound_modulus_psi <- Value_cst_bound_modulus_psi()
 
+  t1star <- Value_t1star()
 
+  shortcut <- 2 * n * (1 - 4 * pi * Value_chi1() * t1star) / K3tilde^2
 
+  first_integral <- bound_modulus_psi / (2*pi) *
+    abs(Upper_Incomplete_gamma(0, shortcut) -
+          Upper_Incomplete_gamma(0, shortcut * (pi * t1star)^2))
+
+  second_integral <- bound_modulus_psi / (2*pi) *
+    abs(Upper_Incomplete_gamma(0, (2*pi)^7 * n^4 / K3tilde^8) -
+          Upper_Incomplete_gamma(0, 2 * n / K3tilde^2))
+
+  return (first_integral + second_integral)
+}
 
