@@ -67,7 +67,7 @@ Bound_EE1 <- function(
   } else if (!continuity & !iid & no_skewness)
   {
     ub_DeltanE = Bound_EE1_nocont_inid_noskew (
-      n = n, eps, K4 = K4, K3 = K3, lambda3 = lambda3, K3tilde = K3tilde)
+      n = n, eps, K4 = K4, K3tilde = K3tilde)
   } else if (!continuity & iid & !no_skewness)
   {
     ub_DeltanE = Bound_EE1_nocont_iid_skew (
@@ -75,7 +75,7 @@ Bound_EE1 <- function(
   } else if (!continuity & iid & no_skewness)
   {
     ub_DeltanE = Bound_EE1_nocont_iid_noskew (
-      n = n, eps, K4 = K4, K3 = K3, lambda3 = lambda3, K3tilde = K3tilde)
+      n = n, eps, K4 = K4, K3tilde = K3tilde)
   } else if (continuity & !iid & !no_skewness)
   {
     ub_DeltanE = Bound_EE1_cont_inid_skew (
@@ -83,7 +83,7 @@ Bound_EE1 <- function(
   } else if (continuity & !iid & no_skewness)
   {
     ub_DeltanE = Bound_EE1_cont_inid_noskew (
-      n = n, eps, K4 = K4, K3 = K3, lambda3 = lambda3, K3tilde = K3tilde)
+      n = n, eps, K4 = K4, K3 = K3, K3tilde = K3tilde)
   } else if (continuity & iid & !no_skewness)
   {
     ub_DeltanE = Bound_EE1_cont_iid_skew (
@@ -91,7 +91,7 @@ Bound_EE1 <- function(
   } else if (continuity & iid & no_skewness)
   {
     ub_DeltanE = Bound_EE1_cont_iid_noskew (
-      n = n, eps, K4 = K4, K3 = K3, lambda3 = lambda3, K3tilde = K3tilde)
+      n = n, eps, K4 = K4, K3 = K3, K3tilde = K3tilde)
   }
 
   return(ub_DeltanE)

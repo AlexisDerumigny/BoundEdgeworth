@@ -23,25 +23,27 @@ Standard_gamma <- function(x){
 #' @noRd
 #'
 Upper_Incomplete_gamma <- function(a, x){
-  gamma(a) * stats::pgamma(x, a, rate = 1, lower.tail = FALSE)
+  if (a > 0) {
+    return (gamma(a) * stats::pgamma(x, a, rate = 1, lower.tail = FALSE))
+
+  } else {
+    return (expint::gammainc(a, x))
+  }
+
 }
-# TODO: erreur, formulation precedente que dans a > 0
-# sinon, utiliser expint::gammainc(), ok pour a = 0
-# expint::gammainc(a = 0, x = 10)
 
 #' Lower Incomplete Gamma function
 #' \gamma(a, x) := \int_0^x |v|^{a-1} \exp(-v) dv.
-#'
-#' Vérifié par Alexis et Yannick le 11 juillet
-#' Bien de 0 à x avec x qui peut être négatif
-#' Bien la valeur absolue dans l'intégrale donc quand x est négatif, ce n'est
-#' pas une Gamma, c'est une autre fonction
 #'
 #'
 #' @noRd
 #'
 Lower_Incomplete_gamma <- function(a, x){
-  gamma(a) * stats::pgamma(x, a, rate = 1, lower.tail = TRUE)
+  if (x >= 0) {
+    return ( gamma(a) * stats::pgamma(x, a, rate = 1, lower.tail = TRUE) )
+  } else {
+    stop("not implemented yet")
+  }
 }
 
 #' TODO: attention pas a proprement parler une gamma dans le cas ou x est
