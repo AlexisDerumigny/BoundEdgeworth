@@ -1,5 +1,11 @@
 
 
+#' Value_chi1()
+#'
+#' @return Return the value of the constant \eqn{\chi_1}
+#'
+#' @noRd
+#'
 Value_chi1 <- function(){
   return(0.09916191)
 }
