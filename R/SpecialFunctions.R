@@ -1,7 +1,4 @@
 
-####
-
-
 #' Wrap-up for the standard (complete) gamma function
 #' \Gamma with the notation of the paper
 #' Already implemented as such in R.
