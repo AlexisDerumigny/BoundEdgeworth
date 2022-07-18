@@ -138,6 +138,7 @@ r1n_inid_noskew <- function(eps, n, K4, K3tilde)
     Value_cst_bound_modulus_psi() * K4 * value_Delta_curly_brace_part / (6 * pi * n)
 }
 
+# Main term of Theorem A.2, excluding skewness
 Bound_EE1_nocont_common_part_noskewness <- function(eps, n, K4, K3tilde)
 {
   return(
@@ -147,36 +148,19 @@ Bound_EE1_nocont_common_part_noskewness <- function(eps, n, K4, K3tilde)
 }
 
 
-
-Bound_EE1_nocont_inid_main_part <- function(
-    eps, noskewness, n, K3tilde, K4, lambda3 = NULL)
-{
-
-  if ( TRUE ) {
-
-  } else {
-
-    part_additional_skewness <-
-      (0.054 * abs(lambda3) * K3tilde +
-         0.037 * e_1n(eps = eps, noskewness = noskewness) * lambda3^2) / n
-
-    value <- part_noskewness + part_additional_skewness
-  }
-
-  return(value)
-}
-
 Bound_EE1_nocont_inid_skew <- function(n, eps, K4, K3tilde, lambda3)
 {
   dominant_term <-
-    Bound_EE1_nocont_common_part_noskewness(eps = eps, n = n, K4 = K4, K3tilde = K3tilde) +
-    (0.054 * abs(lambda3) * K3tilde +
+    Bound_EE1_nocont_common_part_noskewness(eps = eps, n = n,
+                                            K4 = K4, K3tilde = K3tilde)
+
+  additional_term_skewness <- (0.054 * abs(lambda3) * K3tilde +
        0.037 * e_1n(eps = eps, noskewness = FALSE) * lambda3^2) / n
 
-  remainder_term <-
-    r1n_inid_skew(eps = eps, n = n, lambda3 = lambda3, K3tilde = K3tilde, K4 = K4)
+  remainder_term <- r1n_inid_skew(eps = eps, n = n,
+                                  lambda3 = lambda3, K3tilde = K3tilde, K4 = K4)
 
-  return(dominant_term + remainder_term)
+  return(dominant_term + additional_term_skewness + remainder_term)
 }
 
 Bound_EE1_nocont_inid_noskew <- function(n, eps, K4, K3tilde)
