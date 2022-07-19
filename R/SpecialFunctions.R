@@ -73,10 +73,3 @@ Create_Integrand <- function(a){
   }
 }
 
-
-#' TODO: attention pas a proprement parler une gamma dans le cas ou x est
-#' negatif (car valeur absolue), donc a integrer numeriquement probablement
-#' sauf si existe un package?
-#' Intervient pour Delta negatif (tres rare donc ok de toute maniere)
-
-
