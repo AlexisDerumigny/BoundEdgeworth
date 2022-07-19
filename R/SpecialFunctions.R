@@ -42,24 +42,35 @@ Lower_Incomplete_gamma <- function(a, x){
   if (x >= 0) {
     return ( gamma(a) * stats::pgamma(x, a, rate = 1, lower.tail = TRUE) )
   } else {
-    stop("not implemented yet")
+    return ( Generalized_Lower_Incomplete_gamma(a = a, x = x) )
   }
 }
 
-Create_Integrand <- function(a){
-  function(u){
-    abs(u)^(a-1) * exp(u)
-  }
-}
-
+#' Generalized_Lower_Incomplete_gamma
+#'
+#' Compute \eqn{\gamma(a,x)} for negative x
+#'
+#' @noRd
+#'
 Generalized_Lower_Incomplete_gamma <- function(a, x){
 
   f_integrand <- Create_Integrand(a)
 
-  res_integrate <- integrate(f = f_integrand,
-                             lower = 0, upper = x)
+  res_integrate <- stats::integrate(f = f_integrand,
+                                    lower = 0, upper = x)
 
   return(res_integrate$value)
+}
+
+#' Factory function to create the integrand used in
+#' Generalized_Lower_Incomplete_gamma
+#'
+#' @noRd
+#'
+Create_Integrand <- function(a){
+  function(u){
+    abs(u)^(a-1) * exp(u)
+  }
 }
 
 
