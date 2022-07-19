@@ -33,7 +33,7 @@
 #'
 #' @examples
 #' setup = list(continuity = TRUE, iid = FALSE, no_skewness = TRUE)
-#' regularity = list(C0 = 1, p = 2, kappa = 0.99)
+#' regularity = list(C0 = 1, p = 2)
 #'
 #' computedBound <- Bound_EE1(
 #'   setup = setup, n = 150, K4 = 9,
@@ -94,9 +94,66 @@ Bound_EE1 <- function(
       n = n, eps, K4 = K4, K3 = K3, K3tilde = K3tilde)
   }
 
+  if (continuity){
+    ub_DeltanE = ub_DeltanE + smoothness_addit_term(n = n, K3tilde = K3tilde,
+                                                    regularity = regularity)
+  }
+
   return(ub_DeltanE)
 }
 
+
+#' Additional smoothness term
+#'
+#' It checks if \code{regularity} is well-formated, and if so,
+#' it computes the additional smoothness term.
+#'
+#' @examples
+#'
+#' smoothness_addit_term(n = 1000, K3tilde = 6, regularity = list(C0 = 1, p = 2))
+#' smoothness_addit_term(n = 1000, K3tilde = 6, regularity = list(kappa = 0.99))
+#'
+#' @noRd
+smoothness_addit_term <- function(
+    n, K3tilde,
+    regularity = list(C0 = 1, p = 2, kappa = 0.99))
+{
+  an = min(2 * Value_t1star() * pi * sqrt(n) / K3tilde,
+           16 * pi^3 * n^2 / K3tilde^4 )
+
+  bn = 16 * pi^4 * n^2 / K3tilde^4
+
+
+  success = TRUE
+
+  switch (as.character(length(regularity)),
+    "1" = {
+      if (names(regularity) == "kappa") {
+        result = Value_cst_bound_modulus_psi() * regularity$kappa^n * (bn / an) / pi
+      } else {
+        success = FALSE
+      }
+    },
+
+    "2" = {
+      if (identical(names(regularity), c("C0", "p")) |
+          identical(names(regularity), c("p", "C0")) ) {
+        result = Value_cst_bound_modulus_psi() *
+          ( regularity$C0 * an^(- regularity$p) - regularity$C0 * bn^(- regularity$p) ) / pi
+      } else {
+        success = FALSE
+      }
+    },
+
+    { success = FALSE }
+  )
+
+  if (!success){
+    stop("'regularity' should be either a list with C0 and p, or a list with only kappa.")
+  }
+
+  return (result)
+}
 
 
 #' Update missing moments based on upper bounds
