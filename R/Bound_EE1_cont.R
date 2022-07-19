@@ -250,13 +250,13 @@ Delta_curly_brace_part_r2n <- function(eps, p, n, K4, K3tilde){
     }
 
   } else {
+    upper_end = Delta * min(2 * eps * sqrt(n/K4) ,
+                            2^8 * pi^6 * n^4 / K3tilde^8)
+    lower_end = 2^8 * pi^6 * Delta * n^4 / K3tilde^8
 
-    value <- 0.5 * abs(Delta)^(-1 - p/2) * abs(
-      Lower_Incomplete_gamma(p / 2, 2^8 * pi^6 * Delta * n^4 / K3tilde^8) -
-        Lower_Incomplete_gamma(p / 2,
-                               Delta *
-                                 min(2 * eps * sqrt(n/K4),
-                                     2^8 * pi^6 * n^4 / K3tilde^8)))
+    value <- 0.5 * abs(Delta)^(- p/2) *
+      abs( Lower_Incomplete_gamma(p / 2, lower_end) -
+             Lower_Incomplete_gamma(p / 2, upper_end) )
   }
 
   return(value)
