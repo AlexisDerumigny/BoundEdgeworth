@@ -27,7 +27,7 @@ Upper_Incomplete_gamma <- function(a, x){
     return (gamma(a) * stats::pgamma(x, a, rate = 1, lower.tail = FALSE))
 
   } else {
-    return (expint::gammainc(a, x))
+    return (suppressWarnings( { expint::gammainc(a, x) } ) )
   }
 
 }
