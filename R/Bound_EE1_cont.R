@@ -278,7 +278,7 @@ integral_terms_r2n <- function(n, K3tilde)
 
   J4 <- bound_modulus_psi / pi *
     abs(Upper_Incomplete_gamma(0, min(T^(1/2), T^2) * shortcut / (2 * pi^2) ) -
-          Upper_Incomplete_gamma(0, min(t1star * T^(1/2), T^2) * shortcut / 2) )
+          Upper_Incomplete_gamma(0, min(t1star^2 * T^(1/2), T^2) * shortcut / 2) )
 
   J5 <- bound_modulus_psi / pi *
     abs(Upper_Incomplete_gamma(0, min(T^(1/2), T^2) / (2 * pi^2) ) -
