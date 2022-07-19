@@ -270,19 +270,20 @@ Delta_curly_brace_part_r2n <- function(eps, p, n, K4, K3tilde){
 integral_terms_r2n <- function(n, K3tilde)
 {
   bound_modulus_psi <- Value_cst_bound_modulus_psi()
-
   t1star <- Value_t1star()
 
-  shortcut <- 2 * n * (1 - 4 * pi * Value_chi1() * t1star) / K3tilde^2
+  T <- 16 * pi^4 * n^2 / K3tilde^4
 
-  first_integral <- bound_modulus_psi / (2*pi) *
-    abs(Upper_Incomplete_gamma(0, shortcut) -
-          Upper_Incomplete_gamma(0, shortcut * (pi * t1star)^2))
+  shortcut <- (1 - 4 * pi * Value_chi1() * t1star)
 
-  second_integral <- bound_modulus_psi / (2*pi) *
-    abs(Upper_Incomplete_gamma(0, (2*pi)^7 * n^4 / K3tilde^8) -
-          Upper_Incomplete_gamma(0, 2 * n / K3tilde^2))
+  J4 <- bound_modulus_psi / pi *
+    abs(Upper_Incomplete_gamma(0, min(T^(1/2), T^2) * shortcut / (2 * pi^2) ) -
+          Upper_Incomplete_gamma(0, min(t1star * T^(1/2), T^2) * shortcut / 2) )
 
-  return (first_integral + second_integral)
+  J5 <- bound_modulus_psi / pi *
+    abs(Upper_Incomplete_gamma(0, min(T^(1/2), T^2) / (2 * pi^2) ) -
+          Upper_Incomplete_gamma(0, T^2 /(2 * pi^2) ) )
+
+  return (J4 + J5)
 }
 
