@@ -146,7 +146,7 @@ r2n_inid_skew <- function(n, eps, K4, K3, lambda3, K3tilde)
                          Upper_Incomplete_gamma(3/2, lower_end_Gamma) ) / sqrt(n) +
     value_Rn_inid_integrated +
     Value_cst_bound_modulus_psi() * K3 * value_Delta_curly_brace_part / (6 * pi * sqrt(n)) +
-    integral_terms_r2n(n = n, K3tilde = K3tilde)
+    common_diffGamma_r2n(n = n, K3tilde = K3tilde)
 
   return (result)
 }
@@ -164,7 +164,7 @@ r2n_inid_noskew <- function(eps, n, K3tilde, K4)
     14.1961 * K3tilde^16 / ((2*pi)^16 * n^8) +
     value_Rn_inid_integrated +
     Value_cst_bound_modulus_psi() * K4 * value_Delta_curly_brace_part / (6 * pi * n) +
-    integral_terms_r2n(n = n, K3tilde = K3tilde)
+    common_diffGamma_r2n(n = n, K3tilde = K3tilde)
 
   return (result)
 }
@@ -189,7 +189,7 @@ r2n_iid_skew <- function(eps, n, lambda3, K3tilde, K4, K3)
     abs(lambda3) * abs(Upper_Incomplete_gamma(3/2, upper_end_Gamma) -
                          Upper_Incomplete_gamma(3/2, lower_end_Gamma) ) / sqrt(n) +
     value_Rn_iid_integrated +
-    integral_terms_r2n(n = n,
+    common_diffGamma_r2n(n = n,
                        K3tilde = K3tilde) +
     1.306 * ( e_2n(eps = eps, noskewness = FALSE , n = n, K4 = K4, lambda3 = lambda3)
               - e3(eps = eps) ) * lambda3^2 / (36 * n)
@@ -213,7 +213,7 @@ r2n_iid_noskew <- function(eps, n, K3tilde, K4, K3)
     16 * 1.0253 * K3 * abs( Upper_Incomplete_gamma(2, upper_end_Gamma) -
                               Upper_Incomplete_gamma(2, lower_end_Gamma)
     ) /(3 * pi * n) +
-    integral_terms_r2n(n = n, K3tilde = K3tilde)
+    common_diffGamma_r2n(n = n, K3tilde = K3tilde)
 
   return (result)
 }
@@ -264,10 +264,10 @@ Delta_curly_brace_part_r2n <- function(eps, p, n, K4, K3tilde){
 
 
 #' @examples
-#' integral_terms_r2n(n = 300, K3tilde = 6)
+#' common_diffGamma_r2n(n = 300, K3tilde = 6)
 #'
 #' @noRd
-integral_terms_r2n <- function(n, K3tilde)
+common_diffGamma_r2n <- function(n, K3tilde)
 {
   bound_modulus_psi <- Value_cst_bound_modulus_psi()
   t1star <- Value_t1star()
