@@ -46,6 +46,23 @@ Lower_Incomplete_gamma <- function(a, x){
   }
 }
 
+Create_Integrand <- function(a){
+  function(u){
+    abs(u)^(a-1) * exp(u)
+  }
+}
+
+Generalized_Lower_Incomplete_gamma <- function(a, x){
+
+  f_integrand <- Create_Integrand(a)
+
+  res_integrate <- integrate(f = f_integrand,
+                             lower = 0, upper = x)
+
+  return(res_integrate$value)
+}
+
+
 #' TODO: attention pas a proprement parler une gamma dans le cas ou x est
 #' negatif (car valeur absolue), donc a integrer numeriquement probablement
 #' sauf si existe un package?
