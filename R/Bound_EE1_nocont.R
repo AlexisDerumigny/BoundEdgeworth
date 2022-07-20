@@ -146,8 +146,8 @@ r1n_inid_skew <- function(eps, n, lambda3, K3tilde, K3, K4)
       4.3394 * abs(lambda3) * K3tilde^3 / (8 * pi^3 * n^2) +
       value_Rn_inid_integrated +
       abs(lambda3) *
-      (Upper_Incomplete_gamma(3/2, min_lower_end_Gamma) -
-         Upper_Incomplete_gamma(3/2, 2*sqrt(n) / K3tilde)) / sqrt(n) +
+      (Upper_incomplete_gamma(3/2, min_lower_end_Gamma) -
+         Upper_incomplete_gamma(3/2, 2*sqrt(n) / K3tilde)) / sqrt(n) +
       Value_cst_bound_modulus_psi() * K3 *
       value_Delta_curly_brace_part / (6 * pi * sqrt(n))
   )
@@ -203,11 +203,11 @@ r1n_iid_skew <- function(eps, n, K4, K3, K3tilde, lambda3)
       value_Rn_iid_integrated +
       1.306 * (value_e2n - e_3(eps)) * lambda3^2 / (36 * n) +
       abs(lambda3) *
-      (Upper_Incomplete_gamma(3/2, min_lower_end_Gamma) -
-         Upper_Incomplete_gamma(3/2, 2 * sqrt(n) / K3tilde)) / sqrt(n) +
+      (Upper_incomplete_gamma(3/2, min_lower_end_Gamma) -
+         Upper_incomplete_gamma(3/2, 2 * sqrt(n) / K3tilde)) / sqrt(n) +
       Value_cst_bound_modulus_psi() * 2^(5/2) * K3 / (3 * pi * sqrt(n)) *
-      (Upper_Incomplete_gamma(3/2, min_lower_end_Gamma^2 / 8) -
-         Upper_Incomplete_gamma(3/2, 4 * n / (8 * K3tilde^2)))
+      (Upper_incomplete_gamma(3/2, min_lower_end_Gamma^2 / 8) -
+         Upper_incomplete_gamma(3/2, 4 * n / (8 * K3tilde^2)))
   )
 }
 
@@ -231,8 +231,8 @@ r1n_iid_noskew <- function(eps, n, K4, K3tilde)
     (14.1961 + 67.0415) * K3tilde^4 / (16 * pi^4 * n^2) +
       value_Rn_iid_integrated +
       16 * Value_cst_bound_modulus_psi() * K4 / (3 * pi * n) *
-      (Upper_Incomplete_gamma(2, min_lower_end_Gamma^2 / 8) -
-         Upper_Incomplete_gamma(2, 4 * n / (8 * K3tilde^2)))
+      (Upper_incomplete_gamma(2, min_lower_end_Gamma^2 / 8) -
+         Upper_incomplete_gamma(2, 4 * n / (8 * K3tilde^2)))
   )
 }
 
@@ -279,8 +279,8 @@ Delta_curly_brace_part_r1n <- function(eps, p, n, K4, K3tilde){
     lower_end <- 4 * Delta * n / K3tilde^2
 
     value <- 0.5 * abs(Delta)^(- p/2) *
-      abs( Lower_Incomplete_gamma(p/2, lower_end) -
-             Lower_Incomplete_gamma(p/2, upper_end) )
+      abs( Lower_incomplete_gamma(p/2, lower_end) -
+             Lower_incomplete_gamma(p/2, upper_end) )
   }
 
   return(value)

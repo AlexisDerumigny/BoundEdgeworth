@@ -180,7 +180,7 @@ Update_bounds_on_moments <- function(env) {
   # In fact, a bound on abs(lambda3) and only abs(lambda3) or lambda3^2
   # is involved, thus fine.
   if (is.null(env$lambda3)){
-    env$lambda3 <- Value_cst_bound_lambda3_by_K3() * env$K3
+    env$lambda3 <- Value_cst_bound_abs_lambda3_by_K3() * env$K3
   }
 
   # Bound on K3tilde (by K3) if its value (or bound on it) is no provided

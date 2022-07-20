@@ -151,8 +151,8 @@ r2n_inid_skew <- function(n, eps, K4, K3, lambda3, K3tilde)
       0.3334 * K3tilde^4 * abs(lambda3) / (16 * pi^4 * n^(5/2)) +
       14.1961 * K3tilde^16 / ((2*pi)^16 * n^8) +
       4.3394 * K3tilde^12 * abs(lambda3) / ((2*pi)^12 * n^(13/2)) +
-      abs(lambda3) * abs(Upper_Incomplete_gamma(3/2, upper_end_Gamma) -
-                           Upper_Incomplete_gamma(3/2, lower_end_Gamma) ) / sqrt(n) +
+      abs(lambda3) * abs(Upper_incomplete_gamma(3/2, upper_end_Gamma) -
+                           Upper_incomplete_gamma(3/2, lower_end_Gamma) ) / sqrt(n) +
       value_Rn_inid_integrated +
       Value_cst_bound_modulus_psi() * K3 * value_Delta_curly_brace_part / (6 * pi * sqrt(n)) +
       common_diffGamma_r2n(n = n, K3tilde = K3tilde)
@@ -210,12 +210,12 @@ r2n_iid_skew <- function(eps, n, lambda3, K3tilde, K4, K3)
       0.3334 * K3tilde^4 * abs(lambda3) / (16 * pi^4 * n^(5/2)) +
       14.1961 * K3tilde^16 / ((2*pi)^16 * n^8) +
       4.3394 * K3tilde^12 * abs(lambda3) / ((2*pi)^12 * n^(13/2)) +
-      abs(lambda3) * (Upper_Incomplete_gamma(3/2, lower_end_Gamma_1) -
-                        Upper_Incomplete_gamma(3/2, upper_end_Gamma_1)) / sqrt(n) +
+      abs(lambda3) * (Upper_incomplete_gamma(3/2, lower_end_Gamma_1) -
+                        Upper_incomplete_gamma(3/2, upper_end_Gamma_1)) / sqrt(n) +
       value_Rn_iid_integrated +
       Value_cst_bound_modulus_psi() * 2^(5/2) * K3 / (3 * pi * sqrt(n)) *
-      (Upper_Incomplete_gamma(3/2, lower_end_Gamma_2) -
-         Upper_Incomplete_gamma(3/2, upper_end_Gamma_2)) +
+      (Upper_incomplete_gamma(3/2, lower_end_Gamma_2) -
+         Upper_incomplete_gamma(3/2, upper_end_Gamma_2)) +
       1.306 * ( e_2n(eps = eps, noskewness = FALSE , n = n, K4 = K4, lambda3 = lambda3)
                 - e_3(eps = eps) ) * lambda3^2 / (36 * n) +
       common_diffGamma_r2n(n = n, K3tilde = K3tilde)
@@ -244,8 +244,8 @@ r2n_iid_noskew <- function(eps, n, K3tilde, K4, K3)
       14.1961 * K3tilde^16 / ((2*pi)^16 * n^8) +
       value_Rn_iid_integrated +
       16 * Value_cst_bound_modulus_psi() * K3 *
-      abs( Upper_Incomplete_gamma(2, upper_end_Gamma) -
-             Upper_Incomplete_gamma(2, lower_end_Gamma) ) /(3 * pi * n) +
+      abs( Upper_incomplete_gamma(2, upper_end_Gamma) -
+             Upper_incomplete_gamma(2, lower_end_Gamma) ) /(3 * pi * n) +
       common_diffGamma_r2n(n = n, K3tilde = K3tilde)
   )
 }
@@ -286,8 +286,8 @@ Delta_curly_brace_part_r2n <- function(eps, p, n, K4, K3tilde){
     lower_end = 2^8 * pi^6 * Delta * n^4 / K3tilde^8
 
     value <- 0.5 * abs(Delta)^(- p/2) *
-      abs( Lower_Incomplete_gamma(p / 2, lower_end) -
-             Lower_Incomplete_gamma(p / 2, upper_end) )
+      abs( Lower_incomplete_gamma(p / 2, lower_end) -
+             Lower_incomplete_gamma(p / 2, upper_end) )
   }
 
   return(value)
@@ -307,12 +307,12 @@ common_diffGamma_r2n <- function(n, K3tilde)
   shortcut <- (1 - 4 * pi * Value_chi1() * t1star)
 
   J4 <- bound_modulus_psi / pi *
-    abs(Upper_Incomplete_gamma(0, min(T^(1/2), T^2) * shortcut / (2 * pi^2) ) -
-          Upper_Incomplete_gamma(0, min(t1star^2 * T^(1/2), T^2 / pi^2) * shortcut / 2) )
+    abs(Upper_incomplete_gamma(0, min(T^(1/2), T^2) * shortcut / (2 * pi^2) ) -
+          Upper_incomplete_gamma(0, min(t1star^2 * T^(1/2), T^2 / pi^2) * shortcut / 2) )
 
   J5 <- bound_modulus_psi / pi *
-    abs(Upper_Incomplete_gamma(0, min(T^(1/2), T^2) / (2 * pi^2) ) -
-          Upper_Incomplete_gamma(0, T^2 /(2 * pi^2) ) )
+    abs(Upper_incomplete_gamma(0, min(T^(1/2), T^2) / (2 * pi^2) ) -
+          Upper_incomplete_gamma(0, T^2 /(2 * pi^2) ) )
 
   return (J4 + J5)
 }
