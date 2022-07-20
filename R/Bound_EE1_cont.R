@@ -88,8 +88,8 @@ Bound_EE1_cont_iid_skew_wo_int_fSn <- function(n, eps, K4, K3, lambda3, K3tilde)
 #' WITHOUT the term involving the integral of f_{S_n}
 #'
 #' @examples
-#' Bound_EE1_cont_iid_noskew(n = 300, eps = 0.1, K4 = 9, K3tilde = 6, K3 = 4)
-#' Bound_EE1_cont_iid_noskew(n = 300, eps = 0.02, K4 = 9, K3tilde = 6, K3 = 4)
+#' Bound_EE1_cont_iid_noskew_wo_int_fSn(n = 300, eps = 0.1, K4 = 9, K3tilde = 6, K3 = 4)
+#' Bound_EE1_cont_iid_noskew_wo_int_fSn(n = 300, eps = 0.02, K4 = 9, K3tilde = 6, K3 = 4)
 #'
 #' @noRd
 #'
