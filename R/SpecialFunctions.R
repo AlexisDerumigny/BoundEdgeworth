@@ -20,7 +20,7 @@ Standard_gamma <- function(x){
 #'
 #' @noRd
 #'
-Upper_Incomplete_gamma <- function(a, x){
+Upper_incomplete_gamma <- function(a, x){
   return( suppressWarnings( { expint::gammainc(a = a, x = x) } ) )
 }
 
@@ -30,18 +30,18 @@ Upper_Incomplete_gamma <- function(a, x){
 #' gamma function due to the absolute value in the integrand.
 #'
 #' @examples
-#' Lower_Incomplete_gamma(a = 2, x = 3)
-#' Lower_Incomplete_gamma(a = 2, x = -0.5)
-#' # Lower_Incomplete_gamma(a = 0, x = -0.5) # defined for a > 0 only
-#' Lower_Incomplete_gamma(a = 2, x = 0) # ok equal to 0
+#' Lower_incomplete_gamma(a = 2, x = 3)
+#' Lower_incomplete_gamma(a = 2, x = -0.5)
+#' # Lower_incomplete_gamma(a = 0, x = -0.5) # defined for a > 0 only
+#' Lower_incomplete_gamma(a = 2, x = 0) # ok equal to 0
 #'
 #' @noRd
 #'
-Lower_Incomplete_gamma <- function(a, x){
+Lower_incomplete_gamma <- function(a, x){
   if (x >= 0) {
-    return( gamma(a) * stats::pgamma(x, a, rate = 1, lower.tail = TRUE) )
+    return( gamma(a) * stats::pgamma(x, shape = a, rate = 1, lower.tail = TRUE) )
   } else {
-    return( Lower_Incomplete_gamma_for_negative_x(a = a, x = x) )
+    return( Lower_incomplete_gamma_for_negative_x(a = a, x = x) )
   }
 }
 
@@ -51,7 +51,7 @@ Lower_Incomplete_gamma <- function(a, x){
 #'
 #' @noRd
 #'
-Lower_Incomplete_gamma_for_negative_x <- function(a, x){
+Lower_incomplete_gamma_for_negative_x <- function(a, x){
 
   f_integrand <- Create_Integrand(a = a)
 
@@ -60,10 +60,10 @@ Lower_Incomplete_gamma_for_negative_x <- function(a, x){
   return( res_integrate$value )
 }
 
-#' Factory function to create the integrand used in Lower_Incomplete_gamma_for_negative_x()
+#' Factory function to create the integrand used in Lower_incomplete_gamma_for_negative_x()
 #'
 #' @noRd
 #'
-Create_Integrand <- function(a){
+Create_integrand <- function(a){
   return( function(u){abs(u)^(a - 1) * exp(-u)} )
 }
