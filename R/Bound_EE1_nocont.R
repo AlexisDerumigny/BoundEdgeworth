@@ -104,6 +104,13 @@ Bound_EE1_nocont_iid_noskew <- function(n, eps, K4, K3tilde)
 #------------------------------------------------------------------------------#
 
 # Main term of Theorem A.2 and A.3, excluding skewness
+#'
+#' @examples
+#' Bound_EE1_nocont_common_part_noskewness(n = 300, eps = 0.1, K4 = 9, K3tilde = 5)
+#' Bound_EE1_nocont_common_part_noskewness(n = 1000, eps = 0.1, K4 = 9, K3tilde = 5)
+#'
+#' @noRd
+#'
 Bound_EE1_nocont_common_part_noskewness <- function(eps, n, K4, K3tilde){
   return(
     0.1995 * K3tilde / sqrt(n) +
