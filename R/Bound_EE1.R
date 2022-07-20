@@ -45,7 +45,7 @@
 Bound_EE1 <- function(
   setup = list(continuity = FALSE, iid = FALSE, no_skewness = FALSE),
   n, K4, K3 = NULL, lambda3 = NULL, K3tilde = NULL,
-  regularity = list(C0 = 1, p = 2, kappa = 0.99),
+  regularity = list(C0 = 1, p = 2),
   eps = 0.1)
 {
 
@@ -60,7 +60,7 @@ Bound_EE1 <- function(
   # A bound on K4 needs to be provided.
   # If bounds on lambda3, K3, and K3tilde are not provided,
   # we use upper bounds that can be defined from K4 only.
-  env <- environment(); update_bounds_on_moments(env)
+  env <- environment(); Update_bounds_on_moments(env)
 
   # No continuity case (moment condition only)
   if (!continuity) {
@@ -97,7 +97,8 @@ Bound_EE1 <- function(
     }
 
     ub_DeltanE = ub_DeltanE_wo_int_fSn +
-      smoothness_addit_term(n = n, K3tilde = K3tilde, regularity = regularity)
+      Smoothness_additional_term(n = n, K3tilde = K3tilde,
+                                 regularity = regularity, iid = iid)
   }
 
   return(ub_DeltanE)
@@ -110,14 +111,12 @@ Bound_EE1 <- function(
 #'
 #' @examples
 #'
-#' smoothness_addit_term(n = 1000, K3tilde = 6, regularity = list(C0 = 1, p = 2))
-#' smoothness_addit_term(n = 1000, K3tilde = 6, regularity = list(kappa = 0.99))
+#' Smoothness_additional_term(n = 1000, K3tilde = 6, regularity = list(C0 = 1, p = 2), iid = FALSE)
+#' Smoothness_additional_term(n = 1000, K3tilde = 6, regularity = list(kappa = 0.99), iid = TRUE)
 #'
 #' @noRd
 #'
-smoothness_addit_term <- function(n, K3tilde,
-                                  regularity = list(C0 = 1, p = 2, kappa = 0.99),
-                                  iid){
+Smoothness_additional_term <- function(n, K3tilde, regularity, iid){
 
   a_n <- min(2 * Value_t1star() * pi * sqrt(n) / K3tilde,
              16 * pi^3 * n^2 / K3tilde^4 )
@@ -169,7 +168,7 @@ smoothness_addit_term <- function(n, K3tilde,
 #'
 #' @noRd
 #'
-update_bounds_on_moments <- function(env) {
+Update_bounds_on_moments <- function(env) {
 
   # Bound (by K4) on K3 if its value (or bound on it) is no provided
   if (is.null(env$K3)){
