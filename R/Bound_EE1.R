@@ -44,7 +44,8 @@
 #'
 Bound_EE1 <- function(
   setup = list(continuity = FALSE, iid = FALSE, no_skewness = FALSE),
-  n, K4, K3 = NULL, lambda3 = NULL, K3tilde = NULL,
+  n,
+  K4 = 9, K3 = NULL, lambda3 = NULL, K3tilde = NULL,
   regularity = list(C0 = 1, p = 2),
   eps = 0.1)
 {
