@@ -199,23 +199,28 @@ r2n_iid_skew <- function(eps, n, lambda3, K3tilde, K4, K3)
   value_Rn_iid_integrated <- Rn_iid_integrated(
     eps = eps, n = n, K4 = K4, lambda3 = lambda3, noskewness = FALSE)
 
-  upper_end_Gamma <- 16 * pi^3 * n^2 / K3tilde^4
-  lower_end_Gamma <- min( sqrt(2*eps) * (n/K4)^(1/4) , upper_end_Gamma )
+  upper_end_Gamma_1 <- 16 * pi^3 * n^2 / K3tilde^4
+  lower_end_Gamma_1 <- min( sqrt(2*eps) * (n/K4)^(1/4) , upper_end_Gamma_1 )
+
+  upper_end_Gamma_2 <- 2^5 * pi^6 * n^4 / K3tilde^8
+  lower_end_Gamma_2 <- min( eps * sqrt(n / (16 * K4)), upper_end_Gamma_2)
 
   return(
     1.2533 * K3tilde^4 / (16 * pi^4 * n^2) +
       0.3334 * K3tilde^4 * abs(lambda3) / (16 * pi^4 * n^(5/2)) +
       14.1961 * K3tilde^16 / ((2*pi)^16 * n^8) +
       4.3394 * K3tilde^12 * abs(lambda3) / ((2*pi)^12 * n^(13/2)) +
-      abs(lambda3) * (Upper_Incomplete_gamma(3/2, lower_end_Gamma) -
-                        Upper_Incomplete_gamma(3/2, upper_end_Gamma)) / sqrt(n) +
+      abs(lambda3) * (Upper_Incomplete_gamma(3/2, lower_end_Gamma_1) -
+                        Upper_Incomplete_gamma(3/2, upper_end_Gamma_1)) / sqrt(n) +
       value_Rn_iid_integrated +
+      Value_cst_bound_modulus_psi() * 2^(5/2) * K3 / (3 * pi * sqrt(n)) *
+      (Upper_Incomplete_gamma(3/2, lower_end_Gamma_2) -
+         Upper_Incomplete_gamma(3/2, upper_end_Gamma_2)) +
       1.306 * ( e_2n(eps = eps, noskewness = FALSE , n = n, K4 = K4, lambda3 = lambda3)
                 - e_3(eps = eps) ) * lambda3^2 / (36 * n) +
       common_diffGamma_r2n(n = n, K3tilde = K3tilde)
   )
 }
-# TODO: manque le bout en 1.0253 x ??
 
 #' Compute the remainder r_{2,n}^{iid, noskew}(epsilon)
 #' defined in Equation (34) of the paper, in section A.5
@@ -311,4 +316,3 @@ common_diffGamma_r2n <- function(n, K3tilde)
 
   return (J4 + J5)
 }
-
