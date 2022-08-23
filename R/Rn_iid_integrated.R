@@ -21,10 +21,10 @@ Rn_iid_integrated <- function(eps, noskewness, n, K4, lambda3 = NULL)
   denom <- 2 * (1 - 3*eps)^2 * pi
 
   tildeA2n <- bound_modulus_psi / denom * K4 / (24 * n^2) *
-    2^(4) * Standard_gamma(5)
+    2^(3) * Standard_gamma(5)
 
   tildeA5n <- bound_modulus_psi / denom * K4^2 / (576 * n^3) *
-    2^(5) * Standard_gamma(6)
+    2^(4) * Standard_gamma(6)
 
   val_e_2n <- e_2n(
     eps = eps, noskewness = noskewness, n = n, K4 = K4, lambda3 = lambda3)
@@ -34,7 +34,7 @@ Rn_iid_integrated <- function(eps, noskewness, n, K4, lambda3 = NULL)
 
   tildeA6n <- bound_modulus_psi / pi * val_e_2n / (8 * n^2) *
     (K4 / 12 +  1 / (4 * (1 - 3*eps)^2) + val_P_2n / (576 * (1 - 3*eps)^2)) *
-    2^(5) * Standard_gamma(6)
+    2^(4) * Standard_gamma(6)
 
   if (isTRUE(noskewness)) {
 
@@ -43,17 +43,17 @@ Rn_iid_integrated <- function(eps, noskewness, n, K4, lambda3 = NULL)
   } else {
 
     tildeA1n <- bound_modulus_psi / denom * abs(lambda3) / (6 * n^(3/2)) *
-      2^(1.5) * Standard_gamma(2.5)
+      2^(0.5) * Standard_gamma(2.5)
 
     tildeA3n <- bound_modulus_psi / denom * lambda3^2 / (36 * n^2) *
-      2^(4) * Standard_gamma(5)
+      2^(3) * Standard_gamma(5)
 
     tildeA4n <- bound_modulus_psi / denom * K4 * abs(lambda3) / (72 * n^(5/2)) *
-      2^(4.5) * Standard_gamma(5.5)
+      2^(3.5) * Standard_gamma(5.5)
 
     tildeA7n <- bound_modulus_psi / pi * val_e_2n * abs(lambda3) / (12 * n^(3/2)) *
       (K4 / 12 +  1 / (4 * (1 - 3*eps)^2) + val_P_2n / (576 * (1 - 3*eps)^2)) *
-      2^(4.5) * Standard_gamma(5.5)
+      2^(3.5) * Standard_gamma(5.5)
 
   }
 
