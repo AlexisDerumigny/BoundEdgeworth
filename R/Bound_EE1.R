@@ -3,7 +3,8 @@
 #' Uniform bound on Edgeworth expansion
 #'
 #' This function computes a non-aymptotically uniform bound on
-#' the difference between a cdf and its 1st order Edgeworth expansion
+#' the difference between the cdf of a normalized sum of random varialbles
+#' and its 1st order Edgeworth expansion.
 #'
 #' @param setup logical vector of size 3 made up of
 #' the following components: \itemize{
@@ -30,6 +31,27 @@
 #'    over all t such that \eqn{|t| >= 2 t_1^* \pi / K3tilde}
 #' }
 #'
+#' @param n sample size ( = number of random variables that appear in the sum).
+#'
+#' @param K4 bound on the 4th normalized moment of the random variables.
+#' We advise to use K4 = 9 as a general case which covers most ``usual'' distributions.
+#'
+#' @param K3 bound on the 3rd normalized moment.
+#' If not given, an upper bound on `K3` will be derived from the value of `K4`.
+#'
+#' @param lambda3 skewness of the variable.
+#' If not given, an upper bound on `abs(lambda3)` will be derived from the value of `K4`.
+#'
+#' @param K3tilde value of
+#' \deqn{K_{3,n} + \frac{1}{n}\sum_{i=1}^n E|X_i| \sigma_{X_i}^2 / \overline{B}_n^3}
+#' where \eqn{B_n := \sqrt{\sum_{i=1}^n\E[X_i^2]}}.
+#' If not given, an upper bound on `K3tilde` will be derived from the value of `K4`.
+#'
+#' @param eps a value between 0 and 1/3 on which several terms depends.
+#' Any value of `eps` will give a valid upper bound but some may give
+#' tighter results than others.
+#'
+#'
 #' @examples
 #' setup = list(continuity = TRUE, iid = FALSE, no_skewness = TRUE)
 #' regularity = list(C0 = 1, p = 2)
@@ -38,7 +60,15 @@
 #'   setup = setup, n = 150, K4 = 9,
 #'   regularity = regularity, eps = 0.1 )
 #'
+#' setup = list(continuity = TRUE, iid = TRUE, no_skewness = TRUE)
+#' regularity = list(kappa = 0.99)
+#'
+#' computedBound2 <- Bound_EE1(
+#'   setup = setup, n = 150, K4 = 9,
+#'   regularity = regularity, eps = 0.1 )
+#'
 #' print(computedBound)
+#' print(computedBound2)
 #'
 #' @export
 #'
