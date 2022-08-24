@@ -33,16 +33,26 @@ Upper_incomplete_gamma <- function(a, x){
 #' Lower_incomplete_gamma(a = 2, x = 3)
 #' Lower_incomplete_gamma(a = 2, x = -0.5)
 #' # Lower_incomplete_gamma(a = 0, x = -0.5) # defined for a > 0 only
-#' Lower_incomplete_gamma(a = 2, x = 0) # ok equal to 0
+#'
+#' Lower_incomplete_gamma(a = 2, x = c(-0.5, -0.2, 3, 8))
 #'
 #' @noRd
 #'
 Lower_incomplete_gamma <- function(a, x){
-  if (x >= 0) {
-    return( gamma(a) * stats::pgamma(x, shape = a, rate = 1, lower.tail = TRUE) )
-  } else {
-    return( Lower_incomplete_gamma_for_negative_x(a = a, x = x) )
+  result <- rep(0, length(x))
+
+  which_positive <- which(x > 0)
+  if (length(which_positive > 0)){
+    result[which_positive] <- gamma(a) * stats::pgamma(x[which_positive], shape = a,
+                                                       rate = 1, lower.tail = TRUE)
   }
+
+  which_negative <- which(x < 0)
+  if (length(which_negative > 0)){
+    result[which_negative] <- Lower_incomplete_gamma_for_negative_x(a = a, x = x[which_negative])
+  }
+
+  return (result)
 }
 
 #' Compute \eqn{\gamma(a,x)} for negative x
@@ -56,7 +66,9 @@ Lower_incomplete_gamma_for_negative_x <- function(a, x)
   # Function to be integrated
   f_integrand <- function(u){abs(u)^(a - 1) * exp(-u)}
 
-  res_integrate <- stats::integrate(f = f_integrand, lower = 0, upper = x)
+  res_integrate <- lapply(X = x, FUN = stats::integrate, f = f_integrand, lower = 0) |>
+    lapply(FUN = function(y){y$value} ) |>
+    unlist()
 
-  return( res_integrate$value )
+  return( res_integrate )
 }

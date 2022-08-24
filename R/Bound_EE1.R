@@ -57,14 +57,14 @@
 #' regularity = list(C0 = 1, p = 2)
 #'
 #' computedBound <- Bound_EE1(
-#'   setup = setup, n = 150, K4 = 9,
+#'   setup = setup, n = c(150, 2000), K4 = 9,
 #'   regularity = regularity, eps = 0.1 )
 #'
 #' setup = list(continuity = TRUE, iid = TRUE, no_skewness = TRUE)
 #' regularity = list(kappa = 0.99)
 #'
 #' computedBound2 <- Bound_EE1(
-#'   setup = setup, n = 150, K4 = 9,
+#'   setup = setup, n = c(150, 2000), K4 = 9,
 #'   regularity = regularity, eps = 0.1 )
 #'
 #' print(computedBound)

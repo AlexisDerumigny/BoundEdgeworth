@@ -262,33 +262,32 @@ r2n_iid_noskew <- function(eps, n, K3tilde, K4, K3)
 #' p = 3 for r_{2,n}^{inid, skew}
 #' p = 4 for r_{2,n}^{inid, noskew}
 #'
+#' @examples
+#' Delta_curly_brace_part_r2n(eps = 0.1, p = 3, n = c(150, 2000), K4 = 10, K3tilde = 5)
+#'
 #' @noRd
 #'
 Delta_curly_brace_part_r2n <- function(eps, p, n, K4, K3tilde){
 
   Delta <- Delta_of_K4_and_n(K4 = K4, n = n)
 
-  if (Delta == 0) {
+  upper_end_Delta0 <- 16 * pi^3 * n^2 / K3tilde^4
+  lower_end_Delta0 <- sqrt(2*eps) * (n/K4)^(1/4)
 
-    upper_end <- 16 * pi^3 * n^2 / K3tilde^4
+  upper_end_Delta_not0 = Delta * min(2 * eps * sqrt(n/K4) ,
+                                     2^8 * pi^6 * n^4 / K3tilde^8)
+  lower_end_Delta_not0 = 2^8 * pi^6 * Delta * n^4 / K3tilde^8
 
-    lower_end_if_integral_not_nul <- sqrt(2*eps) * (n/K4)^(1/4)
+  value = ifelse(Delta == 0,
 
-    if (upper_end <= lower_end_if_integral_not_nul) {
-      value <- 0
-    } else {
-      value <- (upper_end^p - lower_end_if_integral_not_nul^p) / p
-    }
+                 yes = ifelse(upper_end_Delta0 <= lower_end_Delta0,
+                              0,
+                              (upper_end_Delta0^p - lower_end_Delta0^p) / p ) ,
 
-  } else {
-    upper_end = Delta * min(2 * eps * sqrt(n/K4) ,
-                            2^8 * pi^6 * n^4 / K3tilde^8)
-    lower_end = 2^8 * pi^6 * Delta * n^4 / K3tilde^8
-
-    value <- 0.5 * abs(Delta)^(- p/2) *
-      abs( Lower_incomplete_gamma(p / 2, lower_end) -
-             Lower_incomplete_gamma(p / 2, upper_end) )
-  }
+                 no = 0.5 * abs(Delta)^(- p/2) *
+                   abs( Lower_incomplete_gamma(p / 2, lower_end_Delta_not0) -
+                          Lower_incomplete_gamma(p / 2, upper_end_Delta_not0) )
+  )
 
   return(value)
 }
