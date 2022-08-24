@@ -51,19 +51,12 @@ Lower_incomplete_gamma <- function(a, x){
 #'
 #' @noRd
 #'
-Lower_incomplete_gamma_for_negative_x <- function(a, x){
-
-  f_integrand <- Create_Integrand(a = a)
+Lower_incomplete_gamma_for_negative_x <- function(a, x)
+{
+  # Function to be integrated
+  f_integrand <- function(u){abs(u)^(a - 1) * exp(-u)}
 
   res_integrate <- stats::integrate(f = f_integrand, lower = 0, upper = x)
 
   return( res_integrate$value )
-}
-
-#' Factory function to create the integrand used in Lower_incomplete_gamma_for_negative_x()
-#'
-#' @noRd
-#'
-Create_integrand <- function(a){
-  return( function(u){abs(u)^(a - 1) * exp(-u)} )
 }
