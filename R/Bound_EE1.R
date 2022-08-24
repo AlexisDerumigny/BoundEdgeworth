@@ -67,8 +67,20 @@
 #'   setup = setup, n = c(150, 2000), K4 = 9,
 #'   regularity = regularity, eps = 0.1 )
 #'
+#' setup = list(continuity = FALSE, iid = FALSE, no_skewness = TRUE)
+#'
+#' computedBound3 <- Bound_EE1(
+#'   setup = setup, n = c(150, 2000), K4 = 9, eps = 0.1 )
+#'
+#' setup = list(continuity = FALSE, iid = TRUE, no_skewness = TRUE)
+#'
+#' computedBound4 <- Bound_EE1(
+#'   setup = setup, n = c(150, 2000), K4 = 9, eps = 0.1 )
+#'
 #' print(computedBound)
 #' print(computedBound2)
+#' print(computedBound3)
+#' print(computedBound4)
 #'
 #' @export
 #'
@@ -149,7 +161,7 @@ Bound_EE1 <- function(
 #'
 Smoothness_additional_term <- function(n, K3tilde, regularity, iid){
 
-  a_n <- min(2 * Value_t1star() * pi * sqrt(n) / K3tilde,
+  a_n <- pmin(2 * Value_t1star() * pi * sqrt(n) / K3tilde,
              16 * pi^3 * n^2 / K3tilde^4 )
 
   b_n <- 16 * pi^4 * n^2 / K3tilde^4

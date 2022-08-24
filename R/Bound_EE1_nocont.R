@@ -139,7 +139,7 @@ r1n_inid_skew <- function(eps, n, lambda3, K3tilde, K3, K4)
   value_Delta_curly_brace_part <- Delta_curly_brace_part_r1n(
     eps = eps, p = 3, n = n, K4 = K4, K3tilde = K3tilde)
 
-  min_lower_end_Gamma <- min(sqrt(2*eps) * (n/K4)^(1/4), 2 * sqrt(n) / K3tilde)
+  min_lower_end_Gamma <- pmin(sqrt(2*eps) * (n/K4)^(1/4), 2 * sqrt(n) / K3tilde)
 
   return(
     (14.1961 + 67.0415) * K3tilde^4 / (16 * pi^4 * n^2) +
@@ -195,7 +195,7 @@ r1n_iid_skew <- function(eps, n, K4, K3, K3tilde, lambda3)
   value_e2n <- e_2n(
     eps = eps, noskewness = FALSE, n = n, K4 = K4, lambda3 = lambda3)
 
-  min_lower_end_Gamma <- min(sqrt(2*eps) * (n/K4)^(1/4), 2 * sqrt(n) / K3tilde)
+  min_lower_end_Gamma <- pmin(sqrt(2*eps) * (n/K4)^(1/4), 2 * sqrt(n) / K3tilde)
 
   return(
     (14.1961 + 67.0415) * K3tilde^4 / (16 * pi^4 * n^2) +
@@ -225,7 +225,7 @@ r1n_iid_noskew <- function(eps, n, K4, K3tilde)
   value_Rn_iid_integrated <- Rn_iid_integrated(
     eps = eps, noskewness = TRUE, n = n, K4 = K4)
 
-  min_lower_end_Gamma <- min(sqrt(2*eps) * (n/K4)^(1/4), 2 * sqrt(n) / K3tilde)
+  min_lower_end_Gamma <- pmin(sqrt(2*eps) * (n/K4)^(1/4), 2 * sqrt(n) / K3tilde)
 
   return(
     (14.1961 + 67.0415) * K3tilde^4 / (16 * pi^4 * n^2) +
@@ -256,32 +256,31 @@ Delta_of_K4_and_n <- function(K4, n){
 #' p = 3 for r_{1,n}^{inid, skew}
 #' p = 4 for r_{1,n}^{inid, noskew}
 #'
+#' @examples
+#' Delta_curly_brace_part_r1n(eps = 0.1, p = 3, n = c(150, 2000), K4 = 10, K3tilde = 5)
+#'
 #' @noRd
 #'
 Delta_curly_brace_part_r1n <- function(eps, p, n, K4, K3tilde){
 
   Delta <- Delta_of_K4_and_n(K4 = K4, n = n)
 
-  if (Delta == 0) {
+  upper_end_Delta0 <- 2 * sqrt(n) / K3tilde
+  lower_end_Delta0 <- sqrt(2*eps) * (n/K4)^(1/4)
 
-    upper_end <- 2 * sqrt(n) / K3tilde
-    lower_end_if_integral_not_nul <- sqrt(2*eps) * (n/K4)^(1/4)
+  upper_end_Delta_not0 <- 2 * Delta * pmin(eps * sqrt(n/K4), 2 * n / K3tilde^2)
+  lower_end_Delta_not0 <- 4 * Delta * n / K3tilde^2
 
-    if (upper_end <= lower_end_if_integral_not_nul) {
-      value <- 0
-    } else {
-      value <- (upper_end^p - lower_end_if_integral_not_nul^p) / p
-    }
+  value = ifelse(Delta == 0,
 
-  } else {
+                 yes = ifelse(upper_end_Delta0 <= lower_end_Delta0,
+                              0,
+                              (upper_end_Delta0^p - lower_end_Delta0^p) / p ),
 
-    upper_end <- 2 * Delta * min(eps * sqrt(n/K4), 2 * n / K3tilde^2)
-    lower_end <- 4 * Delta * n / K3tilde^2
-
-    value <- 0.5 * abs(Delta)^(- p/2) *
-      abs( Lower_incomplete_gamma(p/2, lower_end) -
-             Lower_incomplete_gamma(p/2, upper_end) )
-  }
+                 no = 0.5 * abs(Delta)^(- p/2) *
+                   abs( Lower_incomplete_gamma(p/2, lower_end_Delta_not0) -
+                          Lower_incomplete_gamma(p/2, upper_end_Delta_not0) )
+  )
 
   return(value)
 }

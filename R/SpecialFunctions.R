@@ -31,7 +31,11 @@ Upper_incomplete_gamma <- function(a, x){
 #'
 #' @examples
 #' Lower_incomplete_gamma(a = 2, x = 3)
+#' stats::pgamma(q = 3, shape = 2, rate = 1, lower.tail = TRUE)
+#'
 #' Lower_incomplete_gamma(a = 2, x = -0.5)
+#' Lower_incomplete_gamma_for_negative_x(a = 2, x = -0.5)
+#'
 #' # Lower_incomplete_gamma(a = 0, x = -0.5) # defined for a > 0 only
 #'
 #' Lower_incomplete_gamma(a = 2, x = c(-0.5, -0.2, 3, 8))
@@ -58,6 +62,13 @@ Lower_incomplete_gamma <- function(a, x){
 #' Compute \eqn{\gamma(a,x)} for negative x
 #' In this case, the function is not the usual lower incomplete gamma function;
 #' we compute it by numerical integration using \code{stats::integrate}.
+#'
+#' @examples
+#' # We check that it is the same
+#' Lower_incomplete_gamma_for_negative_x(a = 2, x = -0.5)
+#'
+#' f_integrand_here <- function(u){abs(u)^(2 - 1) * exp(-u)}
+#' stats::integrate(f = f_integrand_here, lower = 0, upper = -0.5)
 #'
 #' @noRd
 #'
