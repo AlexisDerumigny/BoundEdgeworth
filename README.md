@@ -25,7 +25,7 @@ remotes::install_github("AlexisDerumigny/BoundEdgeworth")
 
 Let $X_1, \dots, X_n$ be $n$ independent centered variables, and $S_n$
 be their normalized sum, in the sense that
-$S_n := \sum_{i=1}^n X_i / \text{sd}(\sum_{i=1}^n X_i)$.
+$$S_n := \sum_{i=1}^n X_i / \text{sd} \Big(\sum_{i=1}^n X_i \Big).$$
 
 The goal of this package is to compute values of $\delta_n > 0$ such
 that bounds of the form
@@ -34,7 +34,9 @@ $$
 \sup_{x \in \mathbb{R}}
 \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
 \leq \delta_n,
-$$ or of the form
+$$
+
+or of the form
 
 $$
 \sup_{x \in \mathbb{R}}
