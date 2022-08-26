@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bound_BE.R
 \name{Bound_BE}
 \alias{Bound_BE}
-\title{Produce a Berry-Esseen-type bound}
+\title{Compute a Berry-Esseen-type bound}
 \usage{
 Bound_BE(
   setup = list(continuity = FALSE, iid = FALSE, no_skewness = FALSE),
@@ -79,4 +79,9 @@ regularity = list(C0 = 1, p = 2, kappa = 0.99)
 
 #print(c(computedBound_EE1, computedBound_BE))
 
+}
+\references{
+Derumigny A., Girard L., and Guyonvarch Y. (2021).
+Explicit non-asymptotic bounds for the distance to the first-order Edgeworth expansion,
+ArXiv preprint \href{https://arxiv.org/abs/2101.05780}{2101.05780}
 }

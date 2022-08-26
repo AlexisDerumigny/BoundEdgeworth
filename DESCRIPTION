@@ -1,13 +1,20 @@
 Package: BoundEdgeworth
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Bound on the Error of the First-Order Edgeworth Expansion
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R: c(
+    person("Alexis", "Derumigny",, email = "a.f.f.derumigny@tudelft.nl", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6163-8097")),
+    person("Lucas", "Girard",, email = "lucas.girard@ensae.fr", role = "aut"),
+    person("Yannick", "Guyonvarch",, email = "yannick.guyonvarch@inrae.fr", role = "aut")
+	)
+Description: Computes uniform bounds on the distance between
+  the cumulative distribution function of a standardized sum
+  of random variables and its first-order Edgeworth expansion,
+  following the article Derumigny, Girard, Guyonvarch (2021)
+  <arxiv:2101.05780>.
 License: GPL-3
 Encoding: UTF-8
 Imports: 
   expint
 RoxygenNote: 7.2.1
+BugReports: https://github.com/AlexisDerumigny/BoundEdgeworth/issues
