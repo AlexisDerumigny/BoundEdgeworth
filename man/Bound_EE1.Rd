@@ -31,47 +31,64 @@ the following components: \itemize{
 We advise to use K4 = 9 as a general case which covers most ``usual'' distributions.}
 
 \item{K3}{bound on the 3rd normalized moment.
-If not given, an upper bound on `K3` will be derived from the value of `K4`.}
+If not given, an upper bound on \code{K3} will be derived from the value of \code{K4}.}
 
-\item{lambda3}{skewness of the variable.
-If not given, an upper bound on `abs(lambda3)` will be derived from the value of `K4`.}
+\item{lambda3}{(average) skewness of the variables.
+If not given, an upper bound on \mjseqn{abs(lambda3)}
+will be derived from the value of \code{K4}.}
 
 \item{K3tilde}{value of
-\deqn{K_{3,n} + \frac{1}{n}\sum_{i=1}^n E|X_i| \sigma_{X_i}^2 / \overline{B}_n^3}
-where \eqn{B_n := \sqrt{\sum_{i=1}^n\E[X_i^2]}}.
-If not given, an upper bound on `K3tilde` will be derived from the value of `K4`.}
+\mjsdeqn{K_{3,n} + \frac{1}{n}\sum_{i=1}^n \mathbb{E}|X_i| \sigma_{X_i}^2 / \overline{B}_n^3}
+where \mjseqn{\overline{B}_n := \sqrt{(1/n) \sum_{i=1}^n \mathbb{E}[X_i^2]}}.
+If not given, an upper bound on \code{K3tilde} will be derived from the value of \code{K4}.}
 
 \item{regularity}{list of length up to 3
-(only used in the `continuity=TRUE` framework)
+(only used in the \code{continuity=TRUE} framework)
 with the following components:\itemize{
 
-   \item `C0` and `p`: only used in the `iid=FALSE` case.
-   It corresponds to the assumption of a polynomial bound on f_Sn:
-   \eqn{|f_Sn(u)| <= C_0 * u^(-p)} for every \eqn{u > a_n},
-   where \eqn{a_n := 2t_1^* \pi \sqrt(n) / K3tilde}.
+   \item \code{C0} and \code{p}: only used in the \code{iid=FALSE} case.
+   It corresponds to the assumption of a polynomial bound on \mjseqn{f_{S_n}}:
+   \mjseqn{|f_{S_n}(u)| \leq C_0 \times u^{-p}} for every \mjseqn{u > a_n},
+   where \mjseqn{a_n := 2 t_1^* \pi \sqrt{n} / K3tilde}.
 
-   \item `kappa`: only used in the `iid=TRUE` case.
+   \item \code{kappa}: only used in the \code{iid=TRUE} case.
    Corresponds to a bound on the modulus of the characteristic function of
-   the standardized \eqn{X_n}. More precisely, `kappa` is an upper bound on
-   kappa = sup of modulus of f_{X_n / sigma_n}(t)
-   over all t such that \eqn{|t| >= 2 t_1^* \pi / K3tilde}
+   the standardized \mjseqn{X_n}. More precisely, \code{kappa} is an upper bound on
+   \mjseqn{kappa :=} sup of modulus of \mjseqn{f_{X_n / \sigma_n}(t)}
+   over all \mjseqn{t} such that \mjseqn{|t| \geq 2 t_1^* \pi / K3tilde}.
 }}
 
 \item{eps}{a value between 0 and 1/3 on which several terms depends.
-Any value of `eps` will give a valid upper bound but some may give
+Any value of \code{eps} will give a valid upper bound but some may give
 tighter results than others.}
 }
 \description{
 This function computes a non-aymptotically uniform bound on
 the difference between the cdf of a normalized sum of random varialbles
 and its 1st order Edgeworth expansion.
+It returns a valid value \mjseqn{\delta_n} such that
+\mjsdeqn{\sup_{x \in \mathbb{R}}
+\left| \textrm{Prob}(S_n \leq x) - \Phi(x)
+- \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
+\leq \delta_n,}
+where \mjseqn{X_1, \dots, X_n} be \mjseqn{n} independent centered variables,
+and \mjseqn{S_n} be their normalized sum, in the sense that
+\mjseqn{S_n := \sum_{i=1}^n X_i / \text{sd}(\sum_{i=1}^n X_i)}.
+Here \mjseqn{\lambda_{3,n}} denotes the average skewness of
+the variables \mjseqn{X_1, \dots, X_n}.
+}
+\details{
+\loadmathjax
+
+Note that the variables \mjseqn{X_1, \dots, X_n} must be independent
+but may have different distributions (if \code{setup$iid = FALSE}).
 }
 \examples{
 setup = list(continuity = TRUE, iid = FALSE, no_skewness = TRUE)
 regularity = list(C0 = 1, p = 2)
 
 computedBound <- Bound_EE1(
-  setup = setup, n = 150, K4 = 9,
+  setup = setup, n = c(150, 2000), K4 = 9,
   regularity = regularity, eps = 0.1 )
 
 setup = list(continuity = TRUE, iid = TRUE, no_skewness = TRUE)
@@ -100,5 +117,8 @@ print(computedBound4)
 \references{
 Derumigny A., Girard L., and Guyonvarch Y. (2021).
 Explicit non-asymptotic bounds for the distance to the first-order Edgeworth expansion,
-ArXiv preprint \href{https://arxiv.org/abs/2101.05780}{2101.05780}
+ArXiv preprint \href{https://arxiv.org/abs/2101.05780}{arxiv:2101.05780}.
+}
+\seealso{
+\code{\link{Bound_BE}()} for a Berry-Esseen bound.
 }

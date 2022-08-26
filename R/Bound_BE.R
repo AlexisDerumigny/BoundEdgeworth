@@ -1,24 +1,45 @@
 
-#' Produce a Berry-Esseen-type bound
+#' Compute a Berry-Esseen-type bound
 #'
+#' This function returns a valid value \mjseqn{\delta_n} for the bound
+#' \mjsdeqn{\sup_{x \in \mathbb{R}}
+#' \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
+#'   \leq \delta_n,
+#' }
+#' where \mjseqn{X_1, \dots, X_n} be \mjseqn{n} independent centered variables,
+#' and \mjseqn{S_n} be their normalized sum, in the sense that
+#' \mjseqn{S_n := \sum_{i=1}^n X_i / \text{sd}(\sum_{i=1}^n X_i)}.
 #' This bounds follows from the triangular inequality
-#' and the bound on the difference between a cdf and its 1st-order Edgeworth Expansion
+#' and the bound on the difference between a cdf and its 1st-order Edgeworth Expansion.
+#'
+#' \loadmathjax
+#'
+#' Note that the variables \mjseqn{X_1, \dots, X_n} must be independent
+#' but may have different distributions (if \code{setup$iid = FALSE}).
+#'
 #'
 #' @inheritParams Bound_EE1
+#'
+#' @references Derumigny A., Girard L., and Guyonvarch Y. (2021).
+#' Explicit non-asymptotic bounds for the distance to the first-order Edgeworth expansion,
+#' ArXiv preprint \href{https://arxiv.org/abs/2101.05780}{arxiv:2101.05780}.
+#'
+#' @seealso \code{\link{Bound_EE1}()} for a bound on the distance
+#' to the first-order Edgeworth expansion.
 #'
 #' @examples
 #' setup = list(continuity = FALSE, iid = FALSE, no_skewness = FALSE)
 #' regularity = list(C0 = 1, p = 2, kappa = 0.99)
 #'
-#' #computedBound_EE1 <- Bound_EE1(
-#' #  setup = setup, n = 150, K4 = 9,
-#' #  regularity = regularity, eps = 0.1 )
+#' computedBound_EE1 <- Bound_EE1(
+#'   setup = setup, n = 150, K4 = 9,
+#'   regularity = regularity, eps = 0.1 )
 #'
-#' #computedBound_BE <- Bound_BE(
-#' #  setup = setup, n = 150, K4 = 9,
-#' #  regularity = regularity, eps = 0.1 )
+#' computedBound_BE <- Bound_BE(
+#'   setup = setup, n = 150, K4 = 9,
+#'   regularity = regularity, eps = 0.1 )
 #'
-#' #print(c(computedBound_EE1, computedBound_BE))
+#' print(c(computedBound_EE1, computedBound_BE))
 #'
 #' @export
 #'
