@@ -6,13 +6,20 @@
 #' the difference between the cdf of a normalized sum of random varialbles
 #' and its 1st order Edgeworth expansion.
 #' It returns a valid value \mjseqn{\delta_n} such that
-#' \mjsdeqn{\sup_{x \in \mathbb{R}}
+#' \mjteqn{\sup_{x \in R}
 #' \left| \textrm{Prob}(S_n \leq x) - \Phi(x)
 #' - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
+#' \leq \delta_n,}{
+#' \sup_{x \in \mathbb{R}}
+#' \left| \textrm{Prob}(S_n \leq x) - \Phi(x)
+#' - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
+#' \leq \delta_n,}{
+#' \sup_{x \in R} | Prob(S_n \leq x) - \Phi(x)
+#' - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) |
 #' \leq \delta_n,}
 #' where \mjseqn{X_1, \dots, X_n} be \mjseqn{n} independent centered variables,
 #' and \mjseqn{S_n} be their normalized sum, in the sense that
-#' \mjseqn{S_n := \sum_{i=1}^n X_i / \text{sd}(\sum_{i=1}^n X_i)}.
+#' \mjseqn{S_n := \sum_{i=1}^n X_i / \textrm{sd}(\sum_{i=1}^n X_i)}.
 #' Here \mjseqn{\lambda_{3,n}} denotes the average skewness of
 #' the variables \mjseqn{X_1, \dots, X_n}.
 #'
@@ -63,9 +70,14 @@
 #' will be derived from the value of \code{K4}.
 #'
 #' @param K3tilde value of
-#' \mjsdeqn{K_{3,n} + \frac{1}{n}\sum_{i=1}^n \mathbb{E}|X_i| \sigma_{X_i}^2 / \overline{B}_n^3}
-#' where \mjseqn{\overline{B}_n := \sqrt{(1/n) \sum_{i=1}^n \mathbb{E}[X_i^2]}}.
-#' If not given, an upper bound on \code{K3tilde} will be derived from the value of \code{K4}.
+#' \mjtdeqn{K_{3,n} + \frac{1}{n}\sum_{i=1}^n
+#' E|X_i| \sigma_{X_i}^2 / \overline{B}_n^3}{
+#' K_{3,n} + \frac{1}{n}\sum_{i=1}^n
+#' \mathbb{E}|X_i| \sigma_{X_i}^2 / \overline{B}_n^3}{
+#' K_{3,n} + \frac{1}{n}\sum_{i=1}^n E|X_i| \sigma_{X_i}^2 / \overline{B}_n^3}
+#' where \mjseqn{\overline{B}_n := \sqrt{(1/n) \sum_{i=1}^n E[X_i^2]}}.
+#' If not given, an upper bound on \code{K3tilde} will be derived
+#' from the value of \code{K4}.
 #'
 #' @param eps a value between 0 and 1/3 on which several terms depends.
 #' Any value of \code{eps} will give a valid upper bound but some may give

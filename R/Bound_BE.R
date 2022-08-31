@@ -2,13 +2,18 @@
 #' Compute a Berry-Esseen-type bound
 #'
 #' This function returns a valid value \mjseqn{\delta_n} for the bound
-#' \mjsdeqn{\sup_{x \in \mathbb{R}}
+#' \mjteqn{\sup_{x \in R}
 #' \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
 #'   \leq \delta_n,
+#' }{\sup_{x \in \mathbb{R}}
+#' \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
+#'   \leq \delta_n,
+#' }{sup_{x \in \mathbb{R}} | Prob(S_n <= x) - \Phi(x) | <= \delta_n,
 #' }
+#'
 #' where \mjseqn{X_1, \dots, X_n} be \mjseqn{n} independent centered variables,
 #' and \mjseqn{S_n} be their normalized sum, in the sense that
-#' \mjseqn{S_n := \sum_{i=1}^n X_i / \text{sd}(\sum_{i=1}^n X_i)}.
+#' \mjseqn{S_n := \sum_{i=1}^n X_i / \textrm{sd}(\sum_{i=1}^n X_i)}.
 #' This bounds follows from the triangular inequality
 #' and the bound on the difference between a cdf and its 1st-order Edgeworth Expansion.
 #'
