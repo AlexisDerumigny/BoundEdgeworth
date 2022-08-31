@@ -301,17 +301,19 @@ common_diffGamma_r2n <- function(n, K3tilde)
   bound_modulus_psi <- Value_cst_bound_modulus_psi()
   t1star <- Value_t1star()
 
-  T <- 16 * pi^4 * n^2 / K3tilde^4
+  valueT <- 16 * pi^4 * n^2 / K3tilde^4
 
   shortcut <- (1 - 4 * pi * Value_chi1() * t1star)
 
   J4 <- bound_modulus_psi / pi *
-    abs(Upper_incomplete_gamma(0, pmin(T^(1/2), T^2) * shortcut / (2 * pi^2) ) -
-          Upper_incomplete_gamma(0, pmin(t1star^2 * T^(1/2), T^2 / pi^2) * shortcut / 2) )
+    abs(Upper_incomplete_gamma(0, pmin(valueT^(1/2),
+                                       valueT^2) * shortcut / (2 * pi^2) ) -
+          Upper_incomplete_gamma(0, pmin(t1star^2 * valueT^(1/2),
+                                         valueT^2 / pi^2) * shortcut / 2) )
 
   J5 <- bound_modulus_psi / pi *
-    abs(Upper_incomplete_gamma(0, pmin(T^(1/2), T^2) / (2 * pi^2) ) -
-          Upper_incomplete_gamma(0, T^2 /(2 * pi^2) ) )
+    abs(Upper_incomplete_gamma(0, pmin(valueT^(1/2), valueT^2) / (2 * pi^2) ) -
+          Upper_incomplete_gamma(0, valueT^2 /(2 * pi^2) ) )
 
   return (J4 + J5)
 }
