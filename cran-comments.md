@@ -1,4 +1,7 @@
 
+* Changed to <arXiv:2101.05780> instead of <arxiv:2101.05780>.
+* A value statement was added for both files `Bound_BE.Rd` and `Bound_EE1.Rd`.
+
 ## Test environments
 
 * Windows 10 (release)

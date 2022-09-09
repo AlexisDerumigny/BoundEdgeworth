@@ -6,7 +6,7 @@
 #' the difference between the cdf of a normalized sum of random varialbles
 #' and its 1st order Edgeworth expansion.
 #' It returns a valid value \mjseqn{\delta_n} such that
-#' \mjteqn{\sup_{x \in R}
+#' \mjtdeqn{\sup_{x \in R}
 #' \left| \textrm{Prob}(S_n \leq x) - \Phi(x)
 #' - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
 #' \leq \delta_n,}{
@@ -83,6 +83,19 @@
 #' Any value of \code{eps} will give a valid upper bound but some may give
 #' tighter results than others.
 #'
+#' @return A vector of the same size as \code{n} with values \mjseqn{\delta_n}
+#' such that
+#' \mjtdeqn{\sup_{x \in R}
+#' \left| \textrm{Prob}(S_n \leq x) - \Phi(x)
+#' - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
+#' \leq \delta_n.}{
+#' \sup_{x \in \mathbb{R}}
+#' \left| \textrm{Prob}(S_n \leq x) - \Phi(x)
+#' - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
+#' \leq \delta_n.}{
+#' \sup_{x \in R} | Prob(S_n \leq x) - \Phi(x)
+#' - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) |
+#' \leq \delta_n.}
 #'
 #' @references
 #' Derumigny A., Girard L., and Guyonvarch Y. (2021).

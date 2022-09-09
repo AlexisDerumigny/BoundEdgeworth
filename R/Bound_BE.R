@@ -2,7 +2,7 @@
 #' Compute a Berry-Esseen-type bound
 #'
 #' This function returns a valid value \mjseqn{\delta_n} for the bound
-#' \mjteqn{\sup_{x \in R}
+#' \mjtdeqn{\sup_{x \in R}
 #' \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
 #'   \leq \delta_n,
 #' }{\sup_{x \in \mathbb{R}}
@@ -24,6 +24,18 @@
 #'
 #'
 #' @inheritParams Bound_EE1
+#'
+#' @return A vector of the same size as \code{n} with values \mjseqn{\delta_n}
+#' such that
+#' \mjtdeqn{\sup_{x \in R}
+#' \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
+#'   \leq \delta_n.
+#' }{\sup_{x \in \mathbb{R}}
+#' \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
+#'   \leq \delta_n.
+#' }{sup_{x \in R} | Prob(S_n <= x) - \Phi(x) | <= \delta_n.
+#' }
+#'
 #'
 #' @references Derumigny A., Girard L., and Guyonvarch Y. (2021).
 #' Explicit non-asymptotic bounds for the distance to the first-order Edgeworth expansion,

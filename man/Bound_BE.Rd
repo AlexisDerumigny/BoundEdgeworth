@@ -67,9 +67,21 @@ with the following components:\itemize{
 Any value of \code{eps} will give a valid upper bound but some may give
 tighter results than others.}
 }
+\value{
+A vector of the same size as \code{n} with values \mjseqn{\delta_n}
+such that
+\mjtdeqn{\sup_{x \in R}
+\left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
+  \leq \delta_n.
+}{\sup_{x \in \mathbb{R}}
+\left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
+  \leq \delta_n.
+}{sup_{x \in R} | Prob(S_n <= x) - \Phi(x) | <= \delta_n.
+}
+}
 \description{
 This function returns a valid value \mjseqn{\delta_n} for the bound
-\mjteqn{\sup_{x \in R}
+\mjtdeqn{\sup_{x \in R}
 \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
   \leq \delta_n,
 }{\sup_{x \in \mathbb{R}}
