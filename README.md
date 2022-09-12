@@ -13,8 +13,13 @@ expansion, [arxiv:2101.05780](https://arxiv.org/abs/2101.05780).
 
 ## How to install
 
-You can install the development version from
-[GitHub](https://github.com/):
+You can install the release version from the CRAN:
+
+``` r
+install.packages("BoundEdgeworth")
+```
+
+or the development version from [GitHub](https://github.com/):
 
 ``` r
 # install.packages("remotes")
@@ -68,7 +73,7 @@ additional assumptions can be added:
 setup = list(continuity = FALSE, iid = TRUE, no_skewness = FALSE)
 
 Bound_EE1(setup = setup, n = 1000, K4 = 9)
-#> [1] 0.1645074
+#> [1] 0.1626857
 ```
 
 This shows that
@@ -76,7 +81,7 @@ This shows that
 $$
 \sup_{x \in \mathbb{R}}
 \left| \textrm{Prob}(S_n \leq x) - \Phi(x) - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
-\leq 0.1645074,
+\leq 0.1626857,
 $$
 
 as soon as the variables $X_1, \dots, X_{1000}$ are i.i.d. with a
@@ -89,7 +94,7 @@ helps to achieve a better bound:
 setup = list(continuity = TRUE, iid = TRUE, no_skewness = FALSE)
 
 Bound_EE1(setup = setup, n = 1000, K4 = 9, regularity = list(kappa = 0.99))
-#> [1] 0.1232255
+#> [1] 0.1214038
 ```
 
 This shows that
@@ -97,7 +102,7 @@ This shows that
 $$
 \sup_{x \in \mathbb{R}}
 \left| \textrm{Prob}(S_n \leq x) - \Phi(x) - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
-\leq 0.1232255,
+\leq 0.1214038,
 $$
 
 in this case.

@@ -27,7 +27,12 @@ Derumigny, Girard, and Guyonvarch (2021), Explicit non-asymptotic bounds for the
 
 ## How to install
 
-You can install the development version from [GitHub](https://github.com/):
+You can install the release version from the CRAN:
+```r
+install.packages("BoundEdgeworth")
+```
+
+or the development version from [GitHub](https://github.com/):
 
 ```r
 # install.packages("remotes")
