@@ -77,9 +77,8 @@ Lower_incomplete_gamma_for_negative_x <- function(a, x)
   # Function to be integrated
   f_integrand <- function(u){abs(u)^(a - 1) * exp(-u)}
 
-  res_integrate <- lapply(X = x, FUN = stats::integrate, f = f_integrand, lower = 0) |>
-    lapply(FUN = function(y){y$value} ) |>
-    unlist()
+  res_integrate <- unlist(lapply(X = x, FUN = function (x) {
+    (stats::integrate(f = f_integrand, lower = 0, upper = x))$value} ) )
 
   return( res_integrate )
 }
