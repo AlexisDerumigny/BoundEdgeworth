@@ -67,17 +67,33 @@ Bound_EE1_cont_inid_noskew_wo_int_fSn <- function(n, eps, K4, K3tilde)
 #'
 #' @noRd
 #'
-Bound_EE1_cont_iid_skew_wo_int_fSn <- function(n, eps, K4, K3, lambda3, K3tilde)
+Bound_EE1_cont_iid_skew_wo_int_fSn <- function(n, eps, K4, K3, lambda3, K3tilde, verbose)
 {
+  if (verbose > 0){
+    cat("Continuous, iid, potential skewed case.\n")
+  }
+
   main_term <-
     Bound_EE1_cont_common_part_noskewness(eps = eps, n = n, K4 = K4)
+
+  if (verbose > 0){
+    cat("Main term:", main_term ,"\n")
+  }
 
   additional_term_skewness <-
     0.037 * e_3(eps = eps) * lambda3^2 / n
 
+  if (verbose > 0){
+    cat("Additional skewness term:", additional_term_skewness ,"\n")
+  }
+
   remainder_term <-
     r2n_iid_skew(eps = eps, n = n, lambda3 = lambda3,
-                 K3tilde = K3tilde, K4 = K4, K3 = K3)
+                 K3tilde = K3tilde, K4 = K4, K3 = K3, verbose = verbose - 1)
+
+  if (verbose > 0){
+    cat("Remainder term:", remainder_term ,"\n")
+  }
 
   return(main_term + additional_term_skewness + remainder_term)
 }
@@ -194,10 +210,14 @@ r2n_inid_noskew <- function(eps, n, K3tilde, K4)
 #'
 #' @noRd
 #'
-r2n_iid_skew <- function(eps, n, lambda3, K3tilde, K4, K3)
+r2n_iid_skew <- function(eps, n, lambda3, K3tilde, K4, K3, verbose = 0)
 {
   value_Rn_iid_integrated <- Rn_iid_integrated(
     eps = eps, n = n, K4 = K4, lambda3 = lambda3, noskewness = FALSE)
+
+  if (verbose > 0){
+    cat("  Rn_iid_integrated:", value_Rn_iid_integrated , "\n")
+  }
 
   upper_end_Gamma_1 <- 16 * pi^3 * n^2 / K3tilde^4
   lower_end_Gamma_1 <- pmin( sqrt(2*eps) * (n/K4)^(1/4) , upper_end_Gamma_1 )
@@ -205,21 +225,55 @@ r2n_iid_skew <- function(eps, n, lambda3, K3tilde, K4, K3)
   upper_end_Gamma_2 <- 2^5 * pi^6 * n^4 / K3tilde^8
   lower_end_Gamma_2 <- pmin( eps * sqrt(n / (16 * K4)), upper_end_Gamma_2)
 
-  return(
-    1.2533 * K3tilde^4 / (16 * pi^4 * n^2) +
-      0.3334 * K3tilde^4 * abs(lambda3) / (16 * pi^4 * n^(5/2)) +
-      14.1961 * K3tilde^16 / ((2*pi)^16 * n^8) +
-      4.3394 * K3tilde^12 * abs(lambda3) / ((2*pi)^12 * n^(13/2)) +
-      abs(lambda3) * (Upper_incomplete_gamma(3/2, lower_end_Gamma_1) -
-                        Upper_incomplete_gamma(3/2, upper_end_Gamma_1)) / sqrt(n) +
-      value_Rn_iid_integrated +
-      Value_cst_bound_modulus_psi() * 2^(5/2) * K3 / (3 * pi * sqrt(n)) *
-      (Upper_incomplete_gamma(3/2, lower_end_Gamma_2) -
-         Upper_incomplete_gamma(3/2, upper_end_Gamma_2)) +
-      1.306 * ( e_2n(eps = eps, noskewness = FALSE , n = n, K4 = K4, lambda3 = lambda3)
-                - e_3(eps = eps) ) * lambda3^2 / (36 * n) +
-      common_diffGamma_r2n(n = n, K3tilde = K3tilde)
-  )
+  r2n_iid_skew_1 = 1.2533 * K3tilde^4 / (16 * pi^4 * n^2)
+  r2n_iid_skew_2 = 0.3334 * K3tilde^4 * abs(lambda3) / (16 * pi^4 * n^(5/2))
+  r2n_iid_skew_3 = 14.1961 * K3tilde^16 / ((2*pi)^16 * n^8)
+  r2n_iid_skew_4 = 4.3394 * K3tilde^12 * abs(lambda3) / ((2*pi)^12 * n^(13/2))
+  r2n_iid_skew_5 = abs(lambda3) * (Upper_incomplete_gamma(3/2, lower_end_Gamma_1) -
+                                     Upper_incomplete_gamma(3/2, upper_end_Gamma_1)) / sqrt(n)
+  r2n_iid_skew_6 = Value_cst_bound_modulus_psi() * 2^(5/2) * K3 / (3 * pi * sqrt(n)) *
+    (Upper_incomplete_gamma(3/2, lower_end_Gamma_2) -
+       Upper_incomplete_gamma(3/2, upper_end_Gamma_2))
+  r2n_iid_skew_7 = 1.306 * ( e_2n(eps = eps, noskewness = FALSE ,
+                                  n = n, K4 = K4, lambda3 = lambda3)
+                             - e_3(eps = eps) ) * lambda3^2 / (36 * n)
+  r2n_iid_skew_8 = common_diffGamma_r2n(n = n, K3tilde = K3tilde)
+
+  result = r2n_iid_skew_1 + r2n_iid_skew_2 + r2n_iid_skew_3 + r2n_iid_skew_4 +
+    r2n_iid_skew_5 + value_Rn_iid_integrated +
+    r2n_iid_skew_6 + r2n_iid_skew_7 + r2n_iid_skew_8
+
+  if (verbose > 0){
+    cat("  Other components of r2n_iid_skew:\n  ",
+        paste0(paste0(
+          c("r2n_iid_skew_1", "r2n_iid_skew_2", "r2n_iid_skew_3", "r2n_iid_skew_4",
+            "r2n_iid_skew_5", "r2n_iid_skew_6", "r2n_iid_skew_7", "r2n_iid_skew_8"), ": ",
+          c(r2n_iid_skew_1, r2n_iid_skew_2, r2n_iid_skew_3, r2n_iid_skew_4,
+                 r2n_iid_skew_5, r2n_iid_skew_6, r2n_iid_skew_7, r2n_iid_skew_8)) , "\n  ") )
+  }
+
+  if (verbose > 1){
+    cat("  Components of r2n_iid_skew_6:\n")
+    cat("    Cst:", Value_cst_bound_modulus_psi(), "\n")
+    cat("    K3:", K3, "\n")
+    cat("    lower_end_Gamma_2:", lower_end_Gamma_2, "\n")
+    cat("    upper_end_Gamma_2:", upper_end_Gamma_2, "\n")
+    cat("    Upper_incomplete_gamma_1:", Upper_incomplete_gamma(3/2, lower_end_Gamma_2), "\n")
+    cat("    Upper_incomplete_gamma_2:", Upper_incomplete_gamma(3/2, upper_end_Gamma_2), "\n\n")
+    cat("Note that 'r2n_iid_skew_6' decrease exponentially fast to 0,",
+        "but this only occurs asymptotically.\n",
+        "For n around 10^6 this term is still visible,",
+        "and this term completely disappear (< 10^{-10}) for n > 10^8.\n",
+        "It is computed as: \n   Cst *  2^(5/2) * K3 / (3 * pi * sqrt(n))",
+        "* (Upper_incomplete_gamma_1 - Upper_incomplete_gamma_2)",
+        "\n Here it is: \n  ", Value_cst_bound_modulus_psi(),
+        "*", "2^(5/2) *", K3, "/", "(3 * pi *", sqrt(n), ")",
+        "* (", Upper_incomplete_gamma(3/2, lower_end_Gamma_2),
+        "-", Upper_incomplete_gamma(3/2, upper_end_Gamma_2), ")",
+        "\n which gives: ", r2n_iid_skew_6, ".\n\n")
+  }
+
+  return (result)
 }
 
 #' Compute the remainder r_{2,n}^{iid, noskew}(epsilon)

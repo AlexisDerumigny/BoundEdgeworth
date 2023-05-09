@@ -83,6 +83,9 @@
 #' Any value of \code{eps} will give a valid upper bound but some may give
 #' tighter results than others.
 #'
+#' @param verbose if 0 the function is silent (no printing).
+#' Higher values gives more precise information about the computation.
+#'
 #' @return A vector of the same size as \code{n} with values \mjseqn{\delta_n}
 #' such that
 #' \mjtdeqn{\sup_{x \in R}
@@ -142,7 +145,8 @@ Bound_EE1 <- function(
   n,
   K4 = 9, K3 = NULL, lambda3 = NULL, K3tilde = NULL,
   regularity = list(C0 = 1, p = 2),
-  eps = 0.1)
+  eps = 0.1,
+  verbose = 0)
 {
 
   # Check 'setup' argument and define shortcuts
@@ -186,15 +190,20 @@ Bound_EE1 <- function(
         n = n, eps = eps, K4 = K4, K3tilde = K3tilde)
     } else if (iid & !no_skewness) {
       ub_DeltanE_wo_int_fSn = Bound_EE1_cont_iid_skew_wo_int_fSn (
-        n = n, eps = eps, K4 = K4, K3 = K3, lambda3 = lambda3, K3tilde = K3tilde)
+        n = n, eps = eps, K4 = K4, K3 = K3, lambda3 = lambda3, K3tilde = K3tilde, verbose = verbose)
     } else if (iid & no_skewness) {
       ub_DeltanE_wo_int_fSn = Bound_EE1_cont_iid_noskew_wo_int_fSn (
         n = n, eps = eps, K4 = K4, K3 = K3, K3tilde = K3tilde)
     }
 
-    ub_DeltanE = ub_DeltanE_wo_int_fSn +
-      Smoothness_additional_term(n = n, K3tilde = K3tilde,
-                                 regularity = regularity, iid = iid)
+    smoothness_additional_term = Smoothness_additional_term(
+      n = n, K3tilde = K3tilde, regularity = regularity, iid = iid)
+
+    if (verbose){
+      cat("Smoothness additional term:", smoothness_additional_term, "\n")
+    }
+
+    ub_DeltanE = ub_DeltanE_wo_int_fSn + smoothness_additional_term
   }
 
   return(ub_DeltanE)

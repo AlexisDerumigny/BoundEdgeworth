@@ -1,7 +1,7 @@
 Package: BoundEdgeworth
 Type: Package
 Title: Bound on the Error of the First-Order Edgeworth Expansion
-Version: 0.1.1
+Version: 0.1.1.01
 Authors@R: c(
     person("Alexis", "Derumigny",, email = "a.f.f.derumigny@tudelft.nl", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6163-8097")),
     person("Lucas", "Girard",, email = "lucas.girard@ensae.fr", role = "aut"),
