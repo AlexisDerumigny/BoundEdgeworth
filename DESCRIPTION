@@ -18,5 +18,5 @@ Imports:
   expint,
   mathjaxr
 RdMacros: mathjaxr
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 BugReports: https://github.com/AlexisDerumigny/BoundEdgeworth/issues

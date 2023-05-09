@@ -83,8 +83,8 @@
 #' Any value of \code{eps} will give a valid upper bound but some may give
 #' tighter results than others.
 #'
-#' @param verbose if 0 the function is silent (no printing).
-#' Higher values gives more precise information about the computation.
+#' @param verbose if it is \code{0} the function is silent (no printing).
+#' Higher values of \code{verbose} give more precise information about the computation.
 #'
 #' @return A vector of the same size as \code{n} with values \mjseqn{\delta_n}
 #' such that

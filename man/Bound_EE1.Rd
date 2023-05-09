@@ -12,7 +12,8 @@ Bound_EE1(
   lambda3 = NULL,
   K3tilde = NULL,
   regularity = list(C0 = 1, p = 2),
-  eps = 0.1
+  eps = 0.1,
+  verbose = 0
 )
 }
 \arguments{
@@ -66,6 +67,9 @@ with the following components:\itemize{
 \item{eps}{a value between 0 and 1/3 on which several terms depends.
 Any value of \code{eps} will give a valid upper bound but some may give
 tighter results than others.}
+
+\item{verbose}{if it is \code{0} the function is silent (no printing).
+Higher values of \code{verbose} give more precise information about the computation.}
 }
 \value{
 A vector of the same size as \code{n} with values \mjseqn{\delta_n}
