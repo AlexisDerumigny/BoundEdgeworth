@@ -1,0 +1,105 @@
+
+#' Computation of power and sufficient sample size for the one-sided t-test
+#'
+#' Let \mjseqn{X_1, \dots, X_n} be \mjseqn{n} i.i.d. variables
+#' with mean \mjseqn{\mu}, variance \mjseqn{\sigma^2}.
+#' Assume that we want to test the hypothesis
+#' \mjseqn{H_0: \mu \leq \mu_0} against the alternative \mjseqn{H_1: \mu \leq \mu_0}.
+#' Let \mjseqn{\eta := (\mu - \mu_0) / \sigma} be the effect size,
+#' i.e. the distance between the null and the alternative hypotheses,
+#' measured in terms of standard deviations.
+#' There is a relation between the sample size \code{n}, the effect size \code{eta}
+#' and the power \code{beta}.
+#'
+#' \loadmathjax
+#' @import mathjaxr
+#'
+#' @param n sample size
+#'
+#' @param eta the effect size \mjseqn{\eta} that
+#' characterizes the alternative hypothesis
+#'
+#' @param beta the power of detecting the effect \code{eta} using the sample size \code{n}
+#'
+#' @param alpha the level of the test
+#'
+#' @param K4 the kurtosis of the \mjseqn{X_i}
+#'
+#' @param kappa Regularity parameter of the distribution of the \mjseqn{X_i}
+#' It corresponds to a bound on the modulus of the characteristic function
+#' of the standardized \mjseqn{X_n}.
+#' More precisely, \code{kappa} is an upper bound on
+#' \mjseqn{kappa :=} sup of modulus of \mjseqn{f_{X_n / \sigma_n}(t)}
+#' over all \mjseqn{t} such that \mjseqn{|t| \geq 2 t_1^* \pi / K3tilde}.
+#'
+#'
+#' @references
+#' Derumigny A., Girard L., and Guyonvarch Y. (2021).
+#' Explicit non-asymptotic bounds for the distance to the first-order Edgeworth expansion,
+#' ArXiv preprint \href{https://arxiv.org/abs/2101.05780}{arxiv:2101.05780}.
+#'
+#' @examples
+#'
+#' # Sufficient sample size to detect an effect of 0.5 standard deviation with probability 80%
+#' t_test_powerAnalysis(eta = 0.5, beta = 0.8)
+#' # We can detect an effect of 0.5 standard deviations with probability 80% for n >= 548
+#'
+#' # Power of an experiment to detect an effect of 0.5 with a sample size of n = 800
+#' t_test_powerAnalysis(eta = 0.5, n = 800)
+#' # We can detect an effect of 0.5 standard deviations with probability 85.1% for n = 800
+#'
+#' # Smallest effect size that can be detected with a probability of 80% for a sample size of n = 800
+#' t_test_powerAnalysis(n = 800, beta = 0.8)
+#' # We can detect an effect of 0.114 standard deviations with probability 80% for n = 800
+#'
+#'
+#' @export
+#'
+t_test_powerAnalysis = function(eta = NULL, n = NULL, beta = NULL,
+                                alpha = 0.05, K4 = 9, kappa = 0.99){
+
+  if (is.null(eta) + is.null(n) + is.null(beta) != 1){
+    stop("Exactly two of 'eta', 'n', 'beta' should be known ",
+         "( = not set to NULL) to be able to find the third one.")
+  }
+
+  if (is.null(beta)){
+    return (t.test.power(eta = eta, n = n,
+                         alpha = alpha, K4 = K4, kappa = kappa))
+  } else if (is.null(n)){
+
+    result = stats::uniroot(
+      f = function(n){t.test.power(eta = eta, n = n,
+                                   alpha = alpha, K4 = K4, kappa = kappa) - beta},
+      interval = c(1, 10^10))
+
+    return (ceiling(result$root))
+  } else {
+
+    result = stats::uniroot(
+      f = function(eta){t.test.power(eta = eta, n = n,
+                                     alpha = alpha, K4 = K4, kappa = kappa) - beta},
+      interval = c(0, 1))
+
+    return (result$root)
+  }
+
+  return (result)
+}
+
+
+# compute beta from eta and n
+t.test.power = function(eta, n, alpha, K4, kappa){
+
+  delta_n = BoundEdgeworth::Bound_BE(
+    setup = list(continuity = TRUE, iid = TRUE, no_skewness = FALSE),
+    n = n, K4 = K4, regularity = list(kappa = kappa), eps = 0.1)
+
+  qnormalpha = stats::qnorm(1 - alpha)
+
+  result = 1 - stats::pnorm( qnormalpha - eta * sqrt(n) ) -
+    0.621 * K4^(3/4) * (1 - ( qnormalpha - eta * sqrt(n) )^2 ) *
+    stats::dnorm( qnormalpha - eta * sqrt(n) ) / (6 * sqrt(n)) - delta_n
+
+  return (result)
+}
