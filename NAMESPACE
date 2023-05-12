@@ -2,5 +2,5 @@
 
 export(Bound_BE)
 export(Bound_EE1)
-export(t_test_powerAnalysis)
+export(Gauss_test_powerAnalysis)
 import(mathjaxr)

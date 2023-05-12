@@ -1,6 +1,6 @@
 
-* New function `t_test_powerAnalysis` for computation of power or sufficient sample size
-  for the one-sided t-test. The power (respectively sufficient sample size)
+* New function `Gauss_test_powerAnalysis` for computation of power or sufficient sample size
+  for the one-sided Gauss test. The power (respectively sufficient sample size)
   are computed in an exact (non-asymptotic) way based on bounds on the Edgeworth expansion.
   This power holds non-asymptotically and uniformly over all alternatives with a given effect size
   (under some regularity conditions: bounded kurtosis, tail constraint `kappa`).
