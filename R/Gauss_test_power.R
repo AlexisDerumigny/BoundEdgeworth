@@ -60,7 +60,7 @@
 #' @export
 #'
 Gauss_test_powerAnalysis = function(eta = NULL, n = NULL, beta = NULL,
-                                alpha = 0.05, K4 = 9, kappa = 0.99){
+                                    alpha = 0.05, K4 = 9, kappa = 0.99){
 
   if (is.null(eta) + is.null(n) + is.null(beta) != 1){
     stop("Exactly two of 'eta', 'n', 'beta' should be known ",
@@ -76,7 +76,7 @@ Gauss_test_powerAnalysis = function(eta = NULL, n = NULL, beta = NULL,
 
     res = stats::uniroot(
       f = function(n){Gauss_test_power(eta = eta, n = n,
-                                   alpha = alpha, K4 = K4, kappa = kappa) - beta},
+                                       alpha = alpha, K4 = K4, kappa = kappa) - beta},
       interval = c(1, 10^10))
 
     result = ceiling(res$root)
@@ -86,7 +86,7 @@ Gauss_test_powerAnalysis = function(eta = NULL, n = NULL, beta = NULL,
 
     res = stats::uniroot(
       f = function(eta){Gauss_test_power(eta = eta, n = n,
-                                     alpha = alpha, K4 = K4, kappa = kappa) - beta},
+                                         alpha = alpha, K4 = K4, kappa = kappa) - beta},
       interval = c(0, 1))
 
     result = res[["root"]]

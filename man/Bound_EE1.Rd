@@ -69,7 +69,10 @@ Any value of \code{eps} will give a valid upper bound but some may give
 tighter results than others.}
 
 \item{verbose}{if it is \code{0} the function is silent (no printing).
-Higher values of \code{verbose} give more precise information about the computation.}
+Higher values of \code{verbose} give more precise information about the computation.
+\code{verbose = 1} prints the values of the intermediary terms that are summed
+to produce the final bound. This can be useful to understand which term has
+the largest contribution to the bound.}
 }
 \value{
 A vector of the same size as \code{n} with values \mjseqn{\delta_n}
@@ -87,8 +90,8 @@ such that
 \leq \delta_n.}
 }
 \description{
-This function computes a non-aymptotically uniform bound on
-the difference between the cdf of a normalized sum of random varialbles
+This function computes a non-asymptotically uniform bound on
+the difference between the cdf of a normalized sum of random variables
 and its 1st order Edgeworth expansion.
 It returns a valid value \mjseqn{\delta_n} such that
 \mjtdeqn{\sup_{x \in R}
@@ -152,4 +155,8 @@ ArXiv preprint \href{https://arxiv.org/abs/2101.05780}{arxiv:2101.05780}.
 }
 \seealso{
 \code{\link{Bound_BE}()} for a Berry-Esseen bound.
+
+\code{\link{Gauss_test_powerAnalysis}()} for a power analysis of the classical
+Gauss test that is uniformly valid based on this bound on the Edgeworth
+expansion.
 }
