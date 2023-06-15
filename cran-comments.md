@@ -1,11 +1,9 @@
-
 ## Test environments
 
 * Windows 10 (release)
-* Windows Server 2022 (devel)
+* Windows Server 2022 (devel, oldrel)
 * Fedora Linux (devel)
 * Ubuntu Linux (release)
-* macOS 10.13.6 High Sierra (release)
 
 
 ## R CMD check results
