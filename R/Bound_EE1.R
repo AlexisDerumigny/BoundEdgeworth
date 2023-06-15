@@ -85,6 +85,9 @@
 #'
 #' @param verbose if it is \code{0} the function is silent (no printing).
 #' Higher values of \code{verbose} give more precise information about the computation.
+#' \code{verbose = 1} prints the values of the intermediary terms that are summed
+#' to produce the final bound. This can be useful to understand which term has
+#' the largest contribution to the bound.
 #'
 #' @return A vector of the same size as \code{n} with values \mjseqn{\delta_n}
 #' such that
@@ -167,16 +170,16 @@ Bound_EE1 <- function(
 
     if (!iid & !no_skewness) {
       ub_DeltanE = Bound_EE1_nocont_inid_skew (
-        n = n, eps = eps, K4 = K4, K3 = K3, K3tilde = K3tilde, lambda3 = lambda3)
+        n = n, eps = eps, K4 = K4, K3 = K3, K3tilde = K3tilde, lambda3 = lambda3, verbose = verbose)
     } else if (!iid & no_skewness) {
       ub_DeltanE = Bound_EE1_nocont_inid_noskew (
-        n = n, eps = eps, K4 = K4, K3tilde = K3tilde)
+        n = n, eps = eps, K4 = K4, K3tilde = K3tilde, verbose = verbose)
     } else if (iid & !no_skewness) {
       ub_DeltanE = Bound_EE1_nocont_iid_skew (
-        n = n, eps = eps, K4 = K4, K3 = K3, K3tilde = K3tilde, lambda3 = lambda3)
+        n = n, eps = eps, K4 = K4, K3 = K3, K3tilde = K3tilde, lambda3 = lambda3, verbose = verbose)
     } else if (iid & no_skewness) {
       ub_DeltanE = Bound_EE1_nocont_iid_noskew (
-        n = n, eps = eps, K4 = K4, K3tilde = K3tilde)
+        n = n, eps = eps, K4 = K4, K3tilde = K3tilde, verbose = verbose)
     }
 
   # Continuity case (additional regularity conditions)
@@ -184,16 +187,16 @@ Bound_EE1 <- function(
 
     if (!iid & !no_skewness) {
       ub_DeltanE_wo_int_fSn = Bound_EE1_cont_inid_skew_wo_int_fSn (
-        n = n, eps = eps, K4 = K4, K3 = K3, lambda3 = lambda3, K3tilde = K3tilde)
+        n = n, eps = eps, K4 = K4, K3 = K3, lambda3 = lambda3, K3tilde = K3tilde, verbose = verbose)
     } else if (!iid & no_skewness) {
       ub_DeltanE_wo_int_fSn = Bound_EE1_cont_inid_noskew_wo_int_fSn (
-        n = n, eps = eps, K4 = K4, K3tilde = K3tilde)
+        n = n, eps = eps, K4 = K4, K3tilde = K3tilde, verbose = verbose)
     } else if (iid & !no_skewness) {
       ub_DeltanE_wo_int_fSn = Bound_EE1_cont_iid_skew_wo_int_fSn (
         n = n, eps = eps, K4 = K4, K3 = K3, lambda3 = lambda3, K3tilde = K3tilde, verbose = verbose)
     } else if (iid & no_skewness) {
       ub_DeltanE_wo_int_fSn = Bound_EE1_cont_iid_noskew_wo_int_fSn (
-        n = n, eps = eps, K4 = K4, K3 = K3, K3tilde = K3tilde)
+        n = n, eps = eps, K4 = K4, K3 = K3, K3tilde = K3tilde, verbose = verbose)
     }
 
     smoothness_additional_term = Smoothness_additional_term(
@@ -254,7 +257,8 @@ Smoothness_additional_term <- function(n, K3tilde, regularity, iid){
   )
 
   if (!success) {
-    stop("'regularity' should be either a list with C0 and p, or, in the iid case only, a list with only kappa")
+    stop("'regularity' should be either a list with C0 and p; or, ",
+         "in the iid case only, a list with only kappa")
   }
 
   return (result)

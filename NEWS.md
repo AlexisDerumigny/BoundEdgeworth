@@ -7,10 +7,9 @@
   This power holds non-asymptotically and uniformly over all alternatives with a given effect size
   (under some regularity conditions: bounded kurtosis, tail constraint `kappa`).
 
-* Adding a verbose option to `Bound_EE1` to follow the behavior of the different terms.
-  Currently, only the setup
-  `list(continuity = TRUE, iid = TRUE, no_skewness = FALSE)`
-  is covered.
+* Adding a `verbose` option to `Bound_EE1` to indicate the values of the intermediary terms
+  that are summed to produce the final bound. This can be useful to understand which
+  terms has the largest contribution to the bound.
 
 * Removing pipes in `Lower_incomplete_gamma_for_negative_x` to be compatible with R (< 4.1.0).
 

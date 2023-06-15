@@ -20,17 +20,33 @@
 #'
 #' @noRd
 #'
-Bound_EE1_cont_inid_skew_wo_int_fSn <- function(n, eps, K4, K3, lambda3, K3tilde)
+Bound_EE1_cont_inid_skew_wo_int_fSn <- function(n, eps, K4, K3, lambda3, K3tilde, verbose)
 {
+  if (verbose > 0){
+    cat("Continuous, inid, potentially skewed case.\n")
+  }
+
   main_term <-
     Bound_EE1_cont_common_part_noskewness(eps = eps, n = n, K4 = K4)
+
+  if (verbose > 0){
+    cat("Main term:", main_term ,"\n")
+  }
 
   additional_term_skewness <-
     0.037 * e_1n(eps = eps, noskewness = FALSE) * lambda3^2 / n
 
+  if (verbose > 0){
+    cat("Additional skewness term:", additional_term_skewness ,"\n")
+  }
+
   remainder_term <-
     r2n_inid_skew(eps = eps, n = n, lambda3 = lambda3,
                   K3tilde = K3tilde, K4 = K4, K3 = K3)
+
+  if (verbose > 0){
+    cat("Remainder term:", remainder_term ,"\n")
+  }
 
   return(main_term + additional_term_skewness + remainder_term)
 }
@@ -45,13 +61,25 @@ Bound_EE1_cont_inid_skew_wo_int_fSn <- function(n, eps, K4, K3, lambda3, K3tilde
 #' Bound_EE1_cont_inid_noskew_wo_int_fSn(n = 300, eps = 0.1, K4 = 12, K3tilde = 6)
 #'
 #' @noRd
-Bound_EE1_cont_inid_noskew_wo_int_fSn <- function(n, eps, K4, K3tilde)
+Bound_EE1_cont_inid_noskew_wo_int_fSn <- function(n, eps, K4, K3tilde, verbose)
 {
+  if (verbose > 0){
+    cat("Continuous, inid, no-skewed case.\n")
+  }
+
   main_term <-
     Bound_EE1_cont_common_part_noskewness(eps = eps, n = n, K4 = K4)
 
+  if (verbose > 0){
+    cat("Main term:", main_term ,"\n")
+  }
+
   remainder_term <-
     r2n_inid_noskew(eps = eps, n = n, K3tilde = K3tilde, K4 = K4)
+
+  if (verbose > 0){
+    cat("Remainder term:", remainder_term ,"\n")
+  }
 
   return(main_term + remainder_term)
 }
@@ -70,7 +98,7 @@ Bound_EE1_cont_inid_noskew_wo_int_fSn <- function(n, eps, K4, K3tilde)
 Bound_EE1_cont_iid_skew_wo_int_fSn <- function(n, eps, K4, K3, lambda3, K3tilde, verbose)
 {
   if (verbose > 0){
-    cat("Continuous, iid, potential skewed case.\n")
+    cat("Continuous, iid, potentially skewed case.\n")
   }
 
   main_term <-
@@ -109,13 +137,25 @@ Bound_EE1_cont_iid_skew_wo_int_fSn <- function(n, eps, K4, K3, lambda3, K3tilde,
 #'
 #' @noRd
 #'
-Bound_EE1_cont_iid_noskew_wo_int_fSn <- function(n, eps, K4, K3, K3tilde)
+Bound_EE1_cont_iid_noskew_wo_int_fSn <- function(n, eps, K4, K3, K3tilde, verbose)
 {
+  if (verbose > 0){
+    cat("Continuous, iid, no-skewed case.\n")
+  }
+
   main_term <-
     Bound_EE1_cont_common_part_noskewness(eps = eps, n = n, K4 = K4)
 
+  if (verbose > 0){
+    cat("Main term:", main_term ,"\n")
+  }
+
   remainder_term <-
     r2n_iid_noskew(eps = eps, n = n, K3tilde = K3tilde, K4 = K4, K3 = K3)
+
+  if (verbose > 0){
+    cat("Remainder term:", remainder_term ,"\n")
+  }
 
   return(main_term + remainder_term)
 }
