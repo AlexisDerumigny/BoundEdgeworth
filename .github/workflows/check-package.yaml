@@ -40,4 +40,3 @@ jobs:
         with:
           upload-snapshots: false
           upload-results: false
-          args: c("--as-cran")
