@@ -41,4 +41,4 @@ jobs:
           upload-snapshots: false
           upload-results: false
           args: c("--as-cran")
-          build_args: ""
+          build_args: character(0)
