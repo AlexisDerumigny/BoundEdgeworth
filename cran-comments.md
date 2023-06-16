@@ -1,3 +1,11 @@
+
+The previous submission had the NOTE:
+`Package has help file(s) containing install/render-stage \Sexpr{} expressions but no prebuilt PDF manual.`
+
+We apologize for this and have added the prebuilt PDF manual to this new submission,
+so that this note should no longer be present.
+
+
 ## Test environments
 
 * Windows 10 (release)
