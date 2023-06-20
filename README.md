@@ -19,7 +19,8 @@ You can install the release version from the CRAN:
 install.packages("BoundEdgeworth")
 ```
 
-or the development version from [GitHub](https://github.com/):
+or the development version from
+[GitHub](https://github.com/AlexisDerumigny/BoundEdgeworth):
 
 ``` r
 # install.packages("remotes")
@@ -62,10 +63,10 @@ variables $X_1, \dots, X_n$. In all cases, they need to have finite
 fourth moment and to be independent. To get improved bounds, several
 additional assumptions can be added:
 
--   the variables $X_1, \dots, X_n$ are identically distributed,
--   the skewness (normalized third moment) of $X_1, \dots, X_n$ are all
-    $0$, respectively.
--   the distribution of $X_1, \dots, X_n$ admits a continuous component.
+- the variables $X_1, \dots, X_n$ are identically distributed,
+- the skewness (normalized third moment) of $X_1, \dots, X_n$ are all
+  $0$.
+- the distribution of $X_1, \dots, X_n$ admits a continuous component.
 
 ### Example
 
