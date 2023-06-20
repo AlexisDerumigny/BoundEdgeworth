@@ -51,11 +51,22 @@ $$
 $$
 
 are valid. Here $\lambda_{3,n}$ denotes the average skewness of the
-variables $X_1, \dots, X_n$.
+variables $X_1, \dots, X_n$, $\Phi$ denotes the cumulative distribution
+function (cdf) of the standard Gaussian distribution, and $\varphi$
+denotes its density.
 
 The first type of bounds is returned by the function `Bound_BE()`
 (Berry-Esseen-type bound) and the second type (Edgeworth expansion-type
 bound) is returned by the function `Bound_EE1()`.
+
+Such bounds are useful because they can help to control uniformly the
+distance between the cdf of a normalized sum $\textrm{Prob}(S_n \leq x)$
+and its limit $\Phi(x)$ (which is known by the central limit theorem).
+The second type of bound is more precise, and give a control of the
+uniform distance between $\textrm{Prob}(S_n \leq x)$ and its first-order
+Edgeworth expansion, i.e. the limit from the central limit theorem
+$\Phi(x)$ plus the next term
+$\frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x)$.
 
 Note that these bounds depends on the assumptions made on
 $(X_1, \dots, X_n)$ and especially on $K4$, the average kurtosis of the
@@ -107,3 +118,10 @@ $$
 $$
 
 in this case.
+
+## Applications to testing
+
+This package also includes the function `Gauss_test_powerAnalysis()`,
+that computes a uniformly valid power for the Gauss test that is valid
+over a large class of non-Gaussian distribution. This uniform validity
+is a consequence of the above-mentioned bounds.

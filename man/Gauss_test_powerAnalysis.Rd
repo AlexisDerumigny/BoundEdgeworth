@@ -2,7 +2,7 @@
 % Please edit documentation in R/Gauss_test_power.R
 \name{Gauss_test_powerAnalysis}
 \alias{Gauss_test_powerAnalysis}
-\title{Computation of power and sufficient sample size for the one-sided Gauss test}
+\title{Computation of uniformly valid power and sufficient sample size for the one-sided Gauss test}
 \usage{
 Gauss_test_powerAnalysis(
   eta = NULL,
@@ -27,7 +27,7 @@ characterizes the alternative hypothesis}
 
 \item{kappa}{Regularity parameter of the distribution of the \mjseqn{X_i}
 It corresponds to a bound on the modulus of the characteristic function
-of the standardized \mjseqn{X_n}.
+\mjseqn{f_{X_n / \sigma_n}(t)} of the standardized \mjseqn{X_n}.
 More precisely, \code{kappa} is an upper bound on
 \mjseqn{kappa :=} sup of modulus of \mjseqn{f_{X_n / \sigma_n}(t)}
 over all \mjseqn{t} such that \mjseqn{|t| \geq 2 t_1^* \pi / K3tilde}.}
@@ -41,15 +41,28 @@ Let \mjseqn{X_1, \dots, X_n} be \mjseqn{n} i.i.d. variables
 with mean \mjseqn{\mu}, variance \mjseqn{\sigma^2}.
 Assume that we want to test the hypothesis
 \mjseqn{H_0: \mu \leq \mu_0} against the alternative \mjseqn{H_1: \mu \leq \mu_0}.
+For this, we want to use the classical Gauss test, which rejects the null hypothesis
+if \mjseqn{\sqrt{n}(\bar{X}_n - \mu)} is larger than the quantile of the Gaussian
+distribution at level \mjseqn{1 - \alpha}.
 Let \mjseqn{\eta := (\mu - \mu_0) / \sigma} be the effect size,
 i.e. the distance between the null and the alternative hypotheses,
 measured in terms of standard deviations.
+Let \code{beta} be the uniform power of this test:
+\mjtdeqn{beta = \inf_{H_1} \textrm{Prob}(\textrm{Rejection}),}{
+beta = \inf_{H_1} \textrm{Prob}(\textrm{Rejection}),}{
+beta = \inf_{H_1} \textrm{Prob}(\textrm{Rejection}),}
+where the infimum is taken over all distributions under the alternative hypothesis, i.e.
+that have mean \mjseqn{\mu = \mu_0 + \eta \sigma}, bounded kurtosis \code{K4},
+and that satisfy the regularity condition \code{kappa} described below.
+This means that this power \code{beta} is uniformly valid over
+a large (infinite-dimensional) class of alternative distributions,
+much beyond the Gaussian family even though the test is based on the Gaussian quantile.
+There is a relation between the sample size \code{n}, the effect size \code{eta}
+and the uniform power \code{beta} of this test.
+This function takes as an input two of the three quantities \code{n}, \code{eta}, \code{beta}
+and return the third one.
 }
 \details{
-There is a relation between the sample size \code{n}, the effect size \code{eta}
-and the power \code{beta}. This function takes as an input two of these quantities
-and return the third one.
-
 \loadmathjax
 }
 \examples{
