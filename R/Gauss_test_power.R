@@ -23,8 +23,17 @@
 #' much beyond the Gaussian family even though the test is based on the Gaussian quantile.
 #' There is a relation between the sample size \code{n}, the effect size \code{eta}
 #' and the uniform power \code{beta} of this test.
-#' This function takes as an input two of the three quantities \code{n}, \code{eta}, \code{beta}
-#' and return the third one.
+#' This function takes as an input two of the three quantities
+#' (the sample size \code{n}, the effect size \code{eta}, and the uniform power
+#' \code{beta}) and return the other one.
+#'
+#' This function can be used to plan experiments, for example to know what would
+#' be a sufficient sample size to attain a fixed power against a given effect size
+#' that the researcher would like to detect.
+#'
+#' Note that the results given by this function are formally valid only for the
+#' Gauss test (i.e., when the variance of the distribution is assumed to be known).
+#'
 #'
 #' \loadmathjax
 #' @import mathjaxr
