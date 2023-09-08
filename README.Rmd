@@ -22,7 +22,9 @@ require("BoundEdgeworth")
 
 
 This package implements the computation of the bounds described in the article
-Derumigny, Girard, and Guyonvarch (2021), Explicit non-asymptotic bounds for the distance to the first-order Edgeworth expansion, [arxiv:2101.05780](https://arxiv.org/abs/2101.05780).
+Derumigny, Girard, and Guyonvarch (2023), Explicit non-asymptotic bounds for the distance to the first-order Edgeworth expansion, Sankhya A. 
+[doi:10.1007/s13171-023-00320-y](https://doi.org/10.1007/s13171-023-00320-y) 
+[arxiv:2101.05780](https://arxiv.org/abs/2101.05780).
 
 
 ## How to install

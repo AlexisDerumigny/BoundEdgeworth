@@ -1,4 +1,9 @@
 
+
+* add `CITATION` file.
+
+* add DOI of published paper.
+
 # BoundEdgeworth 0.1.2
 
 * New function `Gauss_test_powerAnalysis` for computation of power or sufficient sample size

@@ -1,0 +1,15 @@
+bibentry("Manual",
+         other = unlist(citation(auto = meta), recursive = FALSE))
+
+bibentry("Article",
+         title   = "Explicit non-asymptotic bounds for the distance to the first-order Edgeworth expansion",
+         author  = c(
+           person("Alexis", "Derumigny",, email = "a.f.f.derumigny@tudelft.nl",
+                  comment = c(ORCID = "0000-0002-6163-8097")),
+           person("Lucas", "Girard",, email = "lucas.girard@ensae.fr"),
+           person("Yannick", "Guyonvarch",, email = "yannick.guyonvarch@inrae.fr")
+         ),
+         journal = "Sankhya A",
+         year    = "2023",
+         doi     = "10.1007/s13171-023-00320-y")
+
