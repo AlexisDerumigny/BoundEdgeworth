@@ -21,6 +21,7 @@ Imports:
 RdMacros: mathjaxr
 RoxygenNote: 7.3.1
 BugReports: https://github.com/AlexisDerumigny/BoundEdgeworth/issues
+URL: https://github.com/AlexisDerumigny/BoundEdgeworth
 Suggests: 
     spelling,
     testthat (>= 3.0.0)
