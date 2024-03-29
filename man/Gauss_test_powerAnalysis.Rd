@@ -91,7 +91,7 @@ Gauss_test_powerAnalysis(n = 800, beta = 0.8)
 
 }
 \references{
-Derumigny A., Girard L., and Guyonvarch Y. (2021).
+Derumigny A., Girard L., and Guyonvarch Y. (2023).
 Explicit non-asymptotic bounds for the distance to the first-order Edgeworth expansion,
 Sankhya A. \doi{10.1007/s13171-023-00320-y}
 \href{https://arxiv.org/abs/2101.05780}{arxiv:2101.05780}.

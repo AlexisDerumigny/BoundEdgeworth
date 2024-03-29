@@ -11,7 +11,7 @@ Authors@R: c(
 Description: Computes uniform bounds on the distance between
   the cumulative distribution function of a standardized sum
   of random variables and its first-order Edgeworth expansion,
-  following the article Derumigny, Girard, Guyonvarch (2021)
+  following the article Derumigny, Girard, Guyonvarch (2023)
   <doi:10.1007/s13171-023-00320-y>.
 License: GPL-3
 Encoding: UTF-8
@@ -19,7 +19,7 @@ Imports:
   expint,
   mathjaxr
 RdMacros: mathjaxr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 BugReports: https://github.com/AlexisDerumigny/BoundEdgeworth/issues
 Suggests: 
     spelling,

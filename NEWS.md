@@ -2,7 +2,8 @@
 
 * add `CITATION` file.
 
-* add DOI of published paper.
+* add `DOI` of published paper (Sankhya A, 2023).
+
 
 # BoundEdgeworth 0.1.2
 
@@ -16,7 +17,7 @@
   that are summed to produce the final bound. This can be useful to understand which
   terms has the largest contribution to the bound.
 
-* Removing pipes in `Lower_incomplete_gamma_for_negative_x` to be compatible with R (< 4.1.0).
+* Removing pipes in `Lower_incomplete_gamma_for_negative_x` to be compatible with `R` (< 4.1.0).
 
 
 # BoundEdgeworth 0.1.1
