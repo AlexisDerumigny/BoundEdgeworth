@@ -1,4 +1,7 @@
 
+# BoundEdgeworth 0.1.2
+
+* remove dependence on `mathjaxr`.
 
 * add `CITATION` file.
 
