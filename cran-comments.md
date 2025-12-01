@@ -1,17 +1,14 @@
-
-The previous submission had the NOTE:
-`Package has help file(s) containing install/render-stage \Sexpr{} expressions but no prebuilt PDF manual.`
-
-We apologize for this and have added the prebuilt PDF manual to this new submission,
-so that this note should no longer be present.
+This fixes both current NOTEs in the package check:
+* for the arXiv DOI, this is now replaced by the DOI of the published paper.
+* the HTML validation problems have also been fixed.
 
 
 ## Test environments
 
-* Windows 10 (release)
-* Windows Server 2022 (devel, oldrel)
-* Fedora Linux (devel)
-* Ubuntu Linux (release)
+* Windows 11 (release)
+* Windows Server 2025 (devel)
+* macOS 15.7.2 (release)
+* Ubuntu Linux 24.04.3 (devel)
 
 
 ## R CMD check results
