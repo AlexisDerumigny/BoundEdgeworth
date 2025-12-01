@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bound_EE1.R
 \name{Bound_EE1}
 \alias{Bound_EE1}
-\title{Uniform bound on Edgeworth expansion}
+\title{Uniform bound on the error of the first-order Edgeworth expansion}
 \usage{
 Bound_EE1(
   setup = list(continuity = FALSE, iid = FALSE, no_skewness = FALSE),

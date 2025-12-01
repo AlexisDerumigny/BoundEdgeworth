@@ -1,6 +1,6 @@
 
 
-#' Uniform bound on Edgeworth expansion
+#' Uniform bound on the error of the first-order Edgeworth expansion
 #'
 #' This function computes a non-asymptotically uniform bound on
 #' the difference between the cdf of a normalized sum of random variables
