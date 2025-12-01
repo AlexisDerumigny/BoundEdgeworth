@@ -1,45 +1,38 @@
 
 #' Compute a Berry-Esseen-type bound
 #'
-#' This function returns a valid value \mjseqn{\delta_n} for the bound
-#' \mjtdeqn{\sup_{x \in R}
+#' This function returns a valid value \eqn{\delta_n} for the bound
+#' \deqn{\sup_{x \in \mathbb{R}}
 #' \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
 #'   \leq \delta_n,
-#' }{\sup_{x \in \mathbb{R}}
-#' \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
-#'   \leq \delta_n,
-#' }{sup_{x \in \mathbb{R}} | Prob(S_n <= x) - \Phi(x) | <= \delta_n,
+#' }{sup_{x in R} | Prob(S_n <= x) - Phi(x) | <= delta_n,
 #' }
-#'
-#' where \mjseqn{X_1, \dots, X_n} be \mjseqn{n} independent centered variables,
-#' and \mjseqn{S_n} be their normalized sum, in the sense that
-#' \mjseqn{S_n := \sum_{i=1}^n X_i / \textrm{sd}(\sum_{i=1}^n X_i)}.
+#' where \eqn{X_1, \dots, X_n} be \eqn{n} independent centered variables,
+#' and \eqn{S_n} be their normalized sum, in the sense that
+#' \eqn{S_n := \sum_{i=1}^n X_i / \textrm{sd}(\sum_{i=1}^n X_i)}.
 #' This bounds follows from the triangular inequality
 #' and the bound on the difference between a cdf and its 1st-order Edgeworth Expansion.
 #'
-#' \loadmathjax
 #'
-#' Note that the variables \mjseqn{X_1, \dots, X_n} must be independent
+#' Note that the variables \eqn{X_1, \dots, X_n} must be independent
 #' but may have different distributions (if \code{setup$iid = FALSE}).
 #'
 #'
 #' @inheritParams Bound_EE1
 #'
-#' @return A vector of the same size as \code{n} with values \mjseqn{\delta_n}
+#' @return A vector of the same size as \code{n} with values \eqn{\delta_n}
 #' such that
-#' \mjtdeqn{\sup_{x \in R}
+#' \deqn{\sup_{x \in \mathbb{R}}
 #' \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
 #'   \leq \delta_n.
-#' }{\sup_{x \in \mathbb{R}}
-#' \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
-#'   \leq \delta_n.
-#' }{sup_{x \in R} | Prob(S_n <= x) - \Phi(x) | <= \delta_n.
+#' }{sup_{x \in R} | Prob(S_n <= x) - Phi(x) | <= delta_n.
 #' }
 #'
 #'
 #' @references Derumigny A., Girard L., and Guyonvarch Y. (2023).
 #' Explicit non-asymptotic bounds for the distance to the first-order Edgeworth expansion,
-#' Sankhya A. \doi{10.1007/s13171-023-00320-y}
+#' Sankhya A.
+#' \doi{10.1007/s13171-023-00320-y}
 #' \href{https://arxiv.org/abs/2101.05780}{arxiv:2101.05780}.
 #'
 #' @seealso \code{\link{Bound_EE1}()} for a bound on the distance

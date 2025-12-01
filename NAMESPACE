@@ -3,4 +3,3 @@
 export(Bound_BE)
 export(Bound_EE1)
 export(Gauss_test_powerAnalysis)
-import(mathjaxr)

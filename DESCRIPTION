@@ -16,10 +16,8 @@ Description: Computes uniform bounds on the distance between
 License: GPL-3
 Encoding: UTF-8
 Imports: 
-  expint,
-  mathjaxr
-RdMacros: mathjaxr
-RoxygenNote: 7.3.1
+  expint
+RoxygenNote: 7.3.3
 BugReports: https://github.com/AlexisDerumigny/BoundEdgeworth/issues
 URL: https://github.com/AlexisDerumigny/BoundEdgeworth
 Suggests: 

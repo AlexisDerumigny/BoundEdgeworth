@@ -34,16 +34,16 @@ We advise to use K4 = 9 as a general case which covers most ``usual'' distributi
 If not given, an upper bound on \code{K3} will be derived from the value of \code{K4}.}
 
 \item{lambda3}{(average) skewness of the variables.
-If not given, an upper bound on \mjseqn{abs(lambda3)}
+If not given, an upper bound on \eqn{abs(lambda3)}
 will be derived from the value of \code{K4}.}
 
 \item{K3tilde}{value of
-\mjtdeqn{K_{3,n} + \frac{1}{n}\sum_{i=1}^n
-E|X_i| \sigma_{X_i}^2 / \overline{B}_n^3}{
+\deqn{
 K_{3,n} + \frac{1}{n}\sum_{i=1}^n
 \mathbb{E}|X_i| \sigma_{X_i}^2 / \overline{B}_n^3}{
-K_{3,n} + \frac{1}{n}\sum_{i=1}^n E|X_i| \sigma_{X_i}^2 / \overline{B}_n^3}
-where \mjseqn{\overline{B}_n := \sqrt{(1/n) \sum_{i=1}^n E[X_i^2]}}.
+K_{3,n} + \frac{1}{n}\sum_{i=1}^n E|X_i| \sigma_{X_i}^2 / \overline{B}_n^3
+}
+where \eqn{\overline{B}_n := \sqrt{(1/n) \sum_{i=1}^n E[X_i^2]}}.
 If not given, an upper bound on \code{K3tilde} will be derived
 from the value of \code{K4}.}
 
@@ -52,15 +52,15 @@ from the value of \code{K4}.}
 with the following components:\itemize{
 
    \item \code{C0} and \code{p}: only used in the \code{iid=FALSE} case.
-   It corresponds to the assumption of a polynomial bound on \mjseqn{f_{S_n}}:
-   \mjseqn{|f_{S_n}(u)| \leq C_0 \times u^{-p}} for every \mjseqn{u > a_n},
-   where \mjseqn{a_n := 2 t_1^* \pi \sqrt{n} / K3tilde}.
+   It corresponds to the assumption of a polynomial bound on \eqn{f_{S_n}}:
+   \eqn{|f_{S_n}(u)| \leq C_0 \times u^{-p}} for every \eqn{u > a_n},
+   where \eqn{a_n := 2 t_1^* \pi \sqrt{n} / K3tilde}.
 
    \item \code{kappa}: only used in the \code{iid=TRUE} case.
    Corresponds to a bound on the modulus of the characteristic function of
-   the standardized \mjseqn{X_n}. More precisely, \code{kappa} is an upper bound on
-   \mjseqn{kappa :=} sup of modulus of \mjseqn{f_{X_n / \sigma_n}(t)}
-   over all \mjseqn{t} such that \mjseqn{|t| \geq 2 t_1^* \pi / K3tilde}.
+   the standardized \eqn{X_n}. More precisely, \code{kappa} is an upper bound on
+   \eqn{kappa :=} sup of modulus of \eqn{f_{X_n / \sigma_n}(t)}
+   over all \eqn{t} such that \eqn{|t| \geq 2 t_1^* \pi / K3tilde}.
 }}
 
 \item{eps}{a value between 0 and 1/3 on which several terms depends.
@@ -68,38 +68,29 @@ Any value of \code{eps} will give a valid upper bound but some may give
 tighter results than others.}
 }
 \value{
-A vector of the same size as \code{n} with values \mjseqn{\delta_n}
+A vector of the same size as \code{n} with values \eqn{\delta_n}
 such that
-\mjtdeqn{\sup_{x \in R}
+\deqn{\sup_{x \in \mathbb{R}}
 \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
   \leq \delta_n.
-}{\sup_{x \in \mathbb{R}}
-\left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
-  \leq \delta_n.
-}{sup_{x \in R} | Prob(S_n <= x) - \Phi(x) | <= \delta_n.
+}{sup_{x \in R} | Prob(S_n <= x) - Phi(x) | <= delta_n.
 }
 }
 \description{
-This function returns a valid value \mjseqn{\delta_n} for the bound
-\mjtdeqn{\sup_{x \in R}
+This function returns a valid value \eqn{\delta_n} for the bound
+\deqn{\sup_{x \in \mathbb{R}}
 \left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
   \leq \delta_n,
-}{\sup_{x \in \mathbb{R}}
-\left| \textrm{Prob}(S_n \leq x) - \Phi(x) \right|
-  \leq \delta_n,
-}{sup_{x \in \mathbb{R}} | Prob(S_n <= x) - \Phi(x) | <= \delta_n,
+}{sup_{x in R} | Prob(S_n <= x) - Phi(x) | <= delta_n,
 }
-}
-\details{
-where \mjseqn{X_1, \dots, X_n} be \mjseqn{n} independent centered variables,
-and \mjseqn{S_n} be their normalized sum, in the sense that
-\mjseqn{S_n := \sum_{i=1}^n X_i / \textrm{sd}(\sum_{i=1}^n X_i)}.
+where \eqn{X_1, \dots, X_n} be \eqn{n} independent centered variables,
+and \eqn{S_n} be their normalized sum, in the sense that
+\eqn{S_n := \sum_{i=1}^n X_i / \textrm{sd}(\sum_{i=1}^n X_i)}.
 This bounds follows from the triangular inequality
 and the bound on the difference between a cdf and its 1st-order Edgeworth Expansion.
-
-\loadmathjax
-
-Note that the variables \mjseqn{X_1, \dots, X_n} must be independent
+}
+\details{
+Note that the variables \eqn{X_1, \dots, X_n} must be independent
 but may have different distributions (if \code{setup$iid = FALSE}).
 }
 \examples{
@@ -120,7 +111,8 @@ print(c(computedBound_EE1, computedBound_BE))
 \references{
 Derumigny A., Girard L., and Guyonvarch Y. (2023).
 Explicit non-asymptotic bounds for the distance to the first-order Edgeworth expansion,
-Sankhya A. \doi{10.1007/s13171-023-00320-y}
+Sankhya A.
+\doi{10.1007/s13171-023-00320-y}
 \href{https://arxiv.org/abs/2101.05780}{arxiv:2101.05780}.
 }
 \seealso{

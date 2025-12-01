@@ -1,22 +1,20 @@
 
 #' Computation of uniformly valid power and sufficient sample size for the one-sided Gauss test
 #'
-#' Let \mjseqn{X_1, \dots, X_n} be \mjseqn{n} i.i.d. variables
-#' with mean \mjseqn{\mu}, variance \mjseqn{\sigma^2}.
+#' Let \eqn{X_1, \dots, X_n} be \eqn{n} i.i.d. variables
+#' with mean \eqn{\mu}, variance \eqn{\sigma^2}.
 #' Assume that we want to test the hypothesis
-#' \mjseqn{H_0: \mu \leq \mu_0} against the alternative \mjseqn{H_1: \mu \leq \mu_0}.
+#' \eqn{H_0: \mu \leq \mu_0} against the alternative \eqn{H_1: \mu \leq \mu_0}.
 #' For this, we want to use the classical Gauss test, which rejects the null hypothesis
-#' if \mjseqn{\sqrt{n}(\bar{X}_n - \mu)} is larger than the quantile of the Gaussian
-#' distribution at level \mjseqn{1 - \alpha}.
-#' Let \mjseqn{\eta := (\mu - \mu_0) / \sigma} be the effect size,
+#' if \eqn{\sqrt{n}(\bar{X}_n - \mu)} is larger than the quantile of the Gaussian
+#' distribution at level \eqn{1 - \alpha}.
+#' Let \eqn{\eta := (\mu - \mu_0) / \sigma} be the effect size,
 #' i.e. the distance between the null and the alternative hypotheses,
 #' measured in terms of standard deviations.
 #' Let \code{beta} be the uniform power of this test:
-#' \mjtdeqn{beta = \inf_{H_1} \textrm{Prob}(\textrm{Rejection}),}{
-#' beta = \inf_{H_1} \textrm{Prob}(\textrm{Rejection}),}{
-#' beta = \inf_{H_1} \textrm{Prob}(\textrm{Rejection}),}
+#' \deqn{beta = \inf_{H_1} \textrm{Prob}(\textrm{Rejection}),}
 #' where the infimum is taken over all distributions under the alternative hypothesis, i.e.
-#' that have mean \mjseqn{\mu = \mu_0 + \eta \sigma}, bounded kurtosis \code{K4},
+#' that have mean \eqn{\mu = \mu_0 + \eta \sigma}, bounded kurtosis \code{K4},
 #' and that satisfy the regularity condition \code{kappa} described below.
 #' This means that this power \code{beta} is uniformly valid over
 #' a large (infinite-dimensional) class of alternative distributions,
@@ -35,26 +33,23 @@
 #' Gauss test (i.e., when the variance of the distribution is assumed to be known).
 #'
 #'
-#' \loadmathjax
-#' @import mathjaxr
-#'
 #' @param n sample size
 #'
-#' @param eta the effect size \mjseqn{\eta} that
+#' @param eta the effect size \eqn{\eta} that
 #' characterizes the alternative hypothesis
 #'
 #' @param beta the power of detecting the effect \code{eta} using the sample size \code{n}
 #'
 #' @param alpha the level of the test
 #'
-#' @param K4 the kurtosis of the \mjseqn{X_i}
+#' @param K4 the kurtosis of the \eqn{X_i}
 #'
-#' @param kappa Regularity parameter of the distribution of the \mjseqn{X_i}
+#' @param kappa Regularity parameter of the distribution of the \eqn{X_i}
 #' It corresponds to a bound on the modulus of the characteristic function
-#' \mjseqn{f_{X_n / \sigma_n}(t)} of the standardized \mjseqn{X_n}.
+#' \eqn{f_{X_n / \sigma_n}(t)} of the standardized \eqn{X_n}.
 #' More precisely, \code{kappa} is an upper bound on
-#' \mjseqn{kappa :=} sup of modulus of \mjseqn{f_{X_n / \sigma_n}(t)}
-#' over all \mjseqn{t} such that \mjseqn{|t| \geq 2 t_1^* \pi / K3tilde}.
+#' \eqn{kappa :=} sup of modulus of \eqn{f_{X_n / \sigma_n}(t)}
+#' over all \eqn{t} such that \eqn{|t| \geq 2 t_1^* \pi / K3tilde}.
 #'
 #' @return The computed value of either the sufficient sample size \code{n},
 #' or the minimum effect size \code{eta}, or the power \code{beta}.

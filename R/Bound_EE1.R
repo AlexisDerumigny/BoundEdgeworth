@@ -5,31 +5,21 @@
 #' This function computes a non-asymptotically uniform bound on
 #' the difference between the cdf of a normalized sum of random variables
 #' and its 1st order Edgeworth expansion.
-#' It returns a valid value \mjseqn{\delta_n} such that
-#' \mjtdeqn{\sup_{x \in R}
+#' It returns a valid value \eqn{\delta_n} such that
+#' \deqn{ \sup_{x \in \mathbb{R}}
 #' \left| \textrm{Prob}(S_n \leq x) - \Phi(x)
-#' - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
+#' - \dfrac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
 #' \leq \delta_n,}{
-#' \sup_{x \in \mathbb{R}}
-#' \left| \textrm{Prob}(S_n \leq x) - \Phi(x)
-#' - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
-#' \leq \delta_n,}{
-#' \sup_{x \in R} | Prob(S_n \leq x) - \Phi(x)
-#' - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) |
-#' \leq \delta_n,}
-#' where \mjseqn{X_1, \dots, X_n} be \mjseqn{n} independent centered variables,
-#' and \mjseqn{S_n} be their normalized sum, in the sense that
-#' \mjseqn{S_n := \sum_{i=1}^n X_i / \textrm{sd}(\sum_{i=1}^n X_i)}.
-#' Here \mjseqn{\lambda_{3,n}} denotes the average skewness of
-#' the variables \mjseqn{X_1, \dots, X_n}.
-#'
-#' \loadmathjax
-#'
-#' Note that the variables \mjseqn{X_1, \dots, X_n} must be independent
+#' sup_{x in R} \left| Prob(S_n <= x) - Phi(x)
+#' - lambda_{3,n} (1-x^2) / 6 \sqrt{n} \varphi(x) \right| <= delta_n,
+#' }
+#' where \eqn{X_1, \dots, X_n} be \eqn{n} independent centered variables,
+#' and \eqn{S_n} be their normalized sum, in the sense that
+#' \eqn{S_n := \sum_{i=1}^n X_i / \textrm{sd}(\sum_{i=1}^n X_i)}.
+#' Here \eqn{\lambda_{3,n}} denotes the average skewness of
+#' the variables \eqn{X_1, \dots, X_n}.
+#' Note that the variables \eqn{X_1, \dots, X_n} must be independent
 #' but may have different distributions (if \code{setup$iid = FALSE}).
-#'
-#'
-#' @import mathjaxr
 #'
 #'
 #' @param setup logical vector of size 3 made up of
@@ -46,15 +36,15 @@
 #' with the following components:\itemize{
 #'
 #'    \item \code{C0} and \code{p}: only used in the \code{iid=FALSE} case.
-#'    It corresponds to the assumption of a polynomial bound on \mjseqn{f_{S_n}}:
-#'    \mjseqn{|f_{S_n}(u)| \leq C_0 \times u^{-p}} for every \mjseqn{u > a_n},
-#'    where \mjseqn{a_n := 2 t_1^* \pi \sqrt{n} / K3tilde}.
+#'    It corresponds to the assumption of a polynomial bound on \eqn{f_{S_n}}:
+#'    \eqn{|f_{S_n}(u)| \leq C_0 \times u^{-p}} for every \eqn{u > a_n},
+#'    where \eqn{a_n := 2 t_1^* \pi \sqrt{n} / K3tilde}.
 #'
 #'    \item \code{kappa}: only used in the \code{iid=TRUE} case.
 #'    Corresponds to a bound on the modulus of the characteristic function of
-#'    the standardized \mjseqn{X_n}. More precisely, \code{kappa} is an upper bound on
-#'    \mjseqn{kappa :=} sup of modulus of \mjseqn{f_{X_n / \sigma_n}(t)}
-#'    over all \mjseqn{t} such that \mjseqn{|t| \geq 2 t_1^* \pi / K3tilde}.
+#'    the standardized \eqn{X_n}. More precisely, \code{kappa} is an upper bound on
+#'    \eqn{kappa :=} sup of modulus of \eqn{f_{X_n / \sigma_n}(t)}
+#'    over all \eqn{t} such that \eqn{|t| \geq 2 t_1^* \pi / K3tilde}.
 #' }
 #'
 #' @param n sample size ( = number of random variables that appear in the sum).
@@ -66,16 +56,16 @@
 #' If not given, an upper bound on \code{K3} will be derived from the value of \code{K4}.
 #'
 #' @param lambda3 (average) skewness of the variables.
-#' If not given, an upper bound on \mjseqn{abs(lambda3)}
+#' If not given, an upper bound on \eqn{abs(lambda3)}
 #' will be derived from the value of \code{K4}.
 #'
 #' @param K3tilde value of
-#' \mjtdeqn{K_{3,n} + \frac{1}{n}\sum_{i=1}^n
-#' E|X_i| \sigma_{X_i}^2 / \overline{B}_n^3}{
+#' \deqn{
 #' K_{3,n} + \frac{1}{n}\sum_{i=1}^n
 #' \mathbb{E}|X_i| \sigma_{X_i}^2 / \overline{B}_n^3}{
-#' K_{3,n} + \frac{1}{n}\sum_{i=1}^n E|X_i| \sigma_{X_i}^2 / \overline{B}_n^3}
-#' where \mjseqn{\overline{B}_n := \sqrt{(1/n) \sum_{i=1}^n E[X_i^2]}}.
+#' K_{3,n} + \frac{1}{n}\sum_{i=1}^n E|X_i| \sigma_{X_i}^2 / \overline{B}_n^3
+#' }
+#' where \eqn{\overline{B}_n := \sqrt{(1/n) \sum_{i=1}^n E[X_i^2]}}.
 #' If not given, an upper bound on \code{K3tilde} will be derived
 #' from the value of \code{K4}.
 #'
@@ -89,18 +79,15 @@
 #' to produce the final bound. This can be useful to understand which term has
 #' the largest contribution to the bound.
 #'
-#' @return A vector of the same size as \code{n} with values \mjseqn{\delta_n}
+#' @return A vector of the same size as \code{n} with values \eqn{\delta_n}
 #' such that
-#' \mjtdeqn{\sup_{x \in R}
-#' \left| \textrm{Prob}(S_n \leq x) - \Phi(x)
-#' - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
-#' \leq \delta_n.}{
+#' \deqn{
 #' \sup_{x \in \mathbb{R}}
 #' \left| \textrm{Prob}(S_n \leq x) - \Phi(x)
-#' - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
+#' - \dfrac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) \right|
 #' \leq \delta_n.}{
-#' \sup_{x \in R} | Prob(S_n \leq x) - \Phi(x)
-#' - \frac{\lambda_{3,n}}{6\sqrt{n}}(1-x^2) \varphi(x) |
+#' sup_{x in R} \left| Prob(S_n <= x) - Phi(x)
+#' - lambda_{3,n} (1-x^2) varphi(x) / 6 \sqrt{n} \right|
 #' \leq \delta_n.}
 #'
 #' @references
