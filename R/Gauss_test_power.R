@@ -124,8 +124,13 @@ Gauss_test_power = function(eta, n, alpha, K4, kappa){
 
   qnormalpha = stats::qnorm(1 - alpha)
 
+  # Bound on K3
+  K3 = K4^(3/4)
+  # Bound on |lambda_3|
+  lambda3 = Value_cst_bound_abs_lambda3_by_K3() * K3
+
   result = 1 - stats::pnorm( qnormalpha - eta * sqrt(n) ) -
-    0.621 * K4^(3/4) * (1 - ( qnormalpha - eta * sqrt(n) )^2 ) *
+    lambda3 * (1 - ( qnormalpha - eta * sqrt(n) )^2 ) *
     stats::dnorm( qnormalpha - eta * sqrt(n) ) / (6 * sqrt(n)) - delta_n
 
   return (result)
