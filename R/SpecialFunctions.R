@@ -46,13 +46,13 @@ Lower_incomplete_gamma <- function(a, x){
   result <- rep(0, length(x))
 
   which_positive <- which(x > 0)
-  if (length(which_positive > 0)){
+  if (length(which_positive) > 0){
     result[which_positive] <- gamma(a) * stats::pgamma(x[which_positive], shape = a,
                                                        rate = 1, lower.tail = TRUE)
   }
 
   which_negative <- which(x < 0)
-  if (length(which_negative > 0)){
+  if (length(which_negative) > 0){
     result[which_negative] <- Lower_incomplete_gamma_for_negative_x(a = a, x = x[which_negative])
   }
 
