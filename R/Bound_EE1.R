@@ -143,10 +143,12 @@ Bound_EE1 <- function(
   eps = 0.1,
   verbose = 0)
 {
-
+  if (eps <= 0 || eps >= 1/3) {
+    stop("'eps' must be in the interval (0, 1/3).")
+  }
   # Check 'setup' argument and define shortcuts
   if ( !all(sapply(X = setup, FUN = is.logical)) || length(setup) != 3) {
-    stop("'setup' should be a logical vector of size 3.")
+    stop("'setup' must be a logical vector of size 3.")
   }
   continuity <- setup$continuity
   iid <- setup$iid
